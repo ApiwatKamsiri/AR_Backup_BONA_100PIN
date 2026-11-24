@@ -1,0 +1,183 @@
+/** @file       %FILENAMELC%.c
+ *  @brief      C file of %FILENAMEUC% device
+ *  @copyright  (c) %YEAR%-Arcelik - All Rights Reserved
+ *              Permission to use, reproduce, copy, prepare derivative works,
+ *              modify, distribute, perform, display or sell this software and/or
+ *              its documentation for any purpose is prohibited without the express
+ *              written consent of Arcelik A.S.
+ *  @author     %AUTHOR%
+ *  @date       %DATE%
+ */
+#define FILE_%FILENAMEUC%_C
+
+#include "%FILENAMELC%.h"
+
+/**
+ *  @addtogroup %FILENAMEUC%
+ *  @{
+ */
+
+static DEV_MEM_FUNC_INIT(%DEVNAME%Init);
+static DEV_MEM_FUNC_DEINIT(%DEVNAME%Deinit);
+static DEV_MEM_FUNC_READ(%DEVNAME%Read);
+static DEV_MEM_FUNC_WRITE(%DEVNAME%Write);
+static DEV_MEM_FUNC_PROGRAM(%DEVNAME%Program);
+static DEV_MEM_FUNC_ERASE(%DEVNAME%Erase);
+// static DEV_MEM_FUNC_TICKET_GET(%DEVNAME%TicketGet);
+// static DEV_MEM_FUNC_TICKET_VALID(%DEVNAME%TicketValid);
+
+/// @brief  Structure that defines the functions for %DEVNAME%
+const tsDevMemFuncs devMem%DEVNAMEPC%Funcs =
+{
+    %DEVNAME%Init,
+    %DEVNAME%Deinit,
+    %DEVNAME%Read,
+    %DEVNAME%Write,
+    %DEVNAME%Program,
+    %DEVNAME%Erase,
+    NULL,
+    NULL,
+};
+
+/// @brief  Init function for a %DEVNAME%
+static DEV_MEM_FUNC_INIT(%DEVNAME%Init)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    device->sys->initialized = TRUE;
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Deinit function for a %DEVNAME%
+static DEV_MEM_FUNC_DEINIT(%DEVNAME%Deinit)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    device->sys->initialized = FALSE;
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Read function for a %DEVNAME%
+static DEV_MEM_FUNC_READ(%DEVNAME%Read)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevMemSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return 0;
+    }
+
+    UNUSED(address);  // REMOVE IF USED
+    UNUSED(readData); // REMOVE IF USED
+    UNUSED(length);   // REMOVE IF USED
+
+    TICKET_REMOVE(sys->tvm);
+
+    return length;
+}
+
+/// @brief  Write function for a %DEVNAME%
+static DEV_MEM_FUNC_WRITE(%DEVNAME%Write)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevMemSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return 0;
+    }
+
+    UNUSED(address);   // REMOVE IF USED
+    UNUSED(writeData); // REMOVE IF USED
+    UNUSED(length);    // REMOVE IF USED
+
+    TICKET_REMOVE(sys->tvm);
+
+    return length;
+}
+
+/// @brief  Program function for a %DEVNAME%
+static DEV_MEM_FUNC_PROGRAM(%DEVNAME%Program)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevMemSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return 0;
+    }
+
+    UNUSED(address);  // REMOVE IF USED
+    UNUSED(progData); // REMOVE IF USED
+    UNUSED(length);   // REMOVE IF USED
+
+    TICKET_REMOVE(sys->tvm);
+
+    return length;
+}
+
+/// @brief  Erase function for a %DEVNAME%
+static DEV_MEM_FUNC_ERASE(%DEVNAME%Erase)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevMemSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return 0;
+    }
+
+    UNUSED(address); // REMOVE IF USED
+    UNUSED(size);    // REMOVE IF USED
+
+    TICKET_REMOVE(sys->tvm);
+
+    return size;
+}
+
+#if 0 // Enable if %DEVNAME% requires another functionality other than generic ticket functions
+
+/// @brief  Ticket get function for a %DEVNAME%
+static DEV_MEM_FUNC_TICKET_GET(%DEVNAME%TicketGet)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevMemSystem *sys               = device->sys;
+}
+
+/// @brief  Ticket valid function for a %DEVNAME%
+static DEV_MEM_FUNC_TICKET_VALID(%DEVNAME%TicketValid)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevMemSystem *sys               = device->sys;
+}
+
+#endif
+
+/** @} */

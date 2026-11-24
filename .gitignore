@@ -1,0 +1,23 @@
+*.pbi
+*.bat
+*.xcl
+*.pbd
+*.dnx
+*.browse
+*.linf
+*.crun
+*.o
+*.map
+*.hex
+*.out
+*.7z
+*.i
+*.dep
+*.out
+*.sim
+*.bak
+*.rsp
+Debug/Obj/*
+Debug/List/*
+# Allow .bat only inside built/scripts
+!built/scripts/*.bat

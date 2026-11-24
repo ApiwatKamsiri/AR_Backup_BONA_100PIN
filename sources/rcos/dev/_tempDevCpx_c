@@ -1,0 +1,57 @@
+/** @file       %FILENAMELC%.c
+ *  @brief      C file of %FILENAMEUC% device
+ *  @copyright  (c) %YEAR%-Arcelik - All Rights Reserved
+ *              Permission to use, reproduce, copy, prepare derivative works,
+ *              modify, distribute, perform, display or sell this software and/or
+ *              its documentation for any purpose is prohibited without the express
+ *              written consent of Arcelik A.S.
+ *  @author     %AUTHOR%
+ *  @date       %DATE%
+ */
+#define FILE_%FILENAMEUC%_C
+
+#include "%FILENAMELC%.h"
+
+/**
+ *  @addtogroup %FILENAMEUC%
+ *  @{
+ */
+
+static DEV_CPX_FUNC_INIT(%DEVNAME%Init);
+static DEV_CPX_FUNC_DEINIT(%DEVNAME%Deinit);
+
+/// @brief  Structure that defines the functions for %DEVNAME%
+const tsDevCpxFuncs devCpx%DEVNAMEPC%Funcs =
+{
+    %DEVNAME%Init,
+    %DEVNAME%Deinit,
+};
+
+/// @brief  Init function for a %DEVNAME%
+static DEV_CPX_FUNC_INIT(%DEVNAME%Init)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    UNUSED(config); // REMOVE IF USED
+    device->sys->initialized = 1;
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Deinit function for a %DEVNAME%
+static DEV_CPX_FUNC_DEINIT(%DEVNAME%Deinit)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    device->sys->initialized = 0;
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    return EXIT_SUCCESS;
+}
+
+/** @} */

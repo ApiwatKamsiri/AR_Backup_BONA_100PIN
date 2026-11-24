@@ -1,0 +1,92 @@
+/** @file       %FILENAMELC%.c
+ *  @brief      C file of %FILENAMEUC% device
+ *  @copyright  (c) %YEAR%-Arcelik - All Rights Reserved
+ *              Permission to use, reproduce, copy, prepare derivative works,
+ *              modify, distribute, perform, display or sell this software and/or
+ *              its documentation for any purpose is prohibited without the express
+ *              written consent of Arcelik A.S.
+ *  @author     %AUTHOR%
+ *  @date       %DATE%
+ */
+#define FILE_%FILENAMEUC%_C
+
+#include "%FILENAMELC%.h"
+
+/**
+ *  @addtogroup %FILENAMEUC%
+ *  @{
+ */
+
+static DEV_IO_FUNC_INIT(%DEVNAME%Init);
+static DEV_IO_FUNC_DEINIT(%DEVNAME%Deinit);
+static DEV_IO_FUNC_GET(%DEVNAME%Get);
+static DEV_IO_FUNC_PUT(%DEVNAME%Put);
+
+/// @brief  Structure that defines the functions for %DEVNAME%
+const tsDevIoFuncs devIo%DEVNAMEPC%Funcs =
+{
+    %DEVNAME%Init,
+    %DEVNAME%Deinit,
+    %DEVNAME%Get,
+    %DEVNAME%Put,
+};
+
+/// @brief  Init function for a %DEVNAME%
+static DEV_IO_FUNC_INIT(%DEVNAME%Init)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    if (config)
+    {
+        ts%DEVNAMEPC%Config *cfg = config;
+
+        UNUSED(cfg);    // REMOVE IF USED
+    }
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    device->sys->initialized = 1;
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Deinit function for a %DEVNAME%
+static DEV_IO_FUNC_DEINIT(%DEVNAME%Deinit)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    device->sys->initialized = 0;
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Get function for a %DEVNAME%
+static DEV_IO_FUNC_GET(%DEVNAME%Get)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    return 0;
+}
+
+/// @brief  Put function for a %DEVNAME%
+static DEV_IO_FUNC_PUT(%DEVNAME%Put)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    UNUSED(data);   // REMOVE IF USED
+
+    return EXIT_SUCCESS;
+}
+
+/** @} */

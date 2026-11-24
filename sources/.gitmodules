@@ -1,0 +1,9 @@
+[submodule "RCOS"]
+	path = rcos
+	url = https://rd-repo.arcelik.com/EmbeddedSystems/RCOS.git
+[submodule "CMI_PB_LIB_UI"]
+	path = CMI_PB_LIB_UI
+	url = https://rd-repo.arcelik.com/CMI_RD_SW/CMI_PB_LIB_UI.git
+[submodule "CMI_PB_LIB_SAFETY"]
+	path = CMI_PB_LIB_SAFETY
+	url = https://rd-repo.arcelik.com/CMI_RD_SW/CMI_PB_LIB_SAFETY.git

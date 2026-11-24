@@ -1,0 +1,256 @@
+/** @file       %FILENAMELC%.c
+ *  @brief      C file of %FILENAMEUC% device
+ *  @copyright  (c) %YEAR%-Arcelik - All Rights Reserved
+ *              Permission to use, reproduce, copy, prepare derivative works,
+ *              modify, distribute, perform, display or sell this software and/or
+ *              its documentation for any purpose is prohibited without the express
+ *              written consent of Arcelik A.S.
+ *  @author     %AUTHOR%
+ *  @date       %DATE%
+ */
+#define FILE_%FILENAMEUC%_C
+
+#include "%FILENAMELC%.h"
+
+/**
+ *  @addtogroup %FILENAMEUC%
+ *  @{
+ */
+
+static DEV_COM_FUNC_INIT(%DEVNAME%Init);
+static DEV_COM_FUNC_DEINIT(%DEVNAME%Deinit);
+static DEV_COM_FUNC_OPEN(%DEVNAME%Open);
+static DEV_COM_FUNC_CLOSE(%DEVNAME%Close);
+static DEV_COM_FUNC_SEND(%DEVNAME%Send);
+static DEV_COM_FUNC_RECEIVE(%DEVNAME%Receive);
+// static DEV_COM_FUNC_TICKET_GET(%DEVNAME%TicketGet);
+// static DEV_COM_FUNC_TICKET_VALID(%DEVNAME%TicketValid);
+
+/// @brief  Structure that defines the functions for %DEVNAME%
+const tsDevComFuncs devCom%DEVNAMEPC%Funcs =
+    {
+        %DEVNAME%Init,
+        %DEVNAME%Deinit,
+        %DEVNAME%Open,
+        %DEVNAME%Close,
+        %DEVNAME%Send,
+        %DEVNAME%Receive,
+        NULL,
+        NULL,
+};
+
+/// @brief  Generic interrupt subroutine function for a %DEVNAME%
+static void %DEVNAME%Isr(const tsDevCom *device)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (sys->closed)
+    {
+        // Close function called before ISR
+        sys->closed = NULL;
+        TICKET_REMOVE(sys->tvm);
+    }
+    else
+    {
+        // ISR arrived but there's no close request yet
+        sys->closed = sys->opened;
+    }
+}
+
+/// @brief  Init function for a %DEVNAME%
+static DEV_COM_FUNC_INIT(%DEVNAME%Init)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    device->sys->initialized = TRUE;
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Deinit function for a %DEVNAME%
+static DEV_COM_FUNC_DEINIT(%DEVNAME%Deinit)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+    device->sys->initialized = FALSE;
+
+    return EXIT_SUCCESS;
+}
+
+/// @brief  Open function for a %DEVNAME%
+static DEV_COM_FUNC_OPEN(%DEVNAME%Open)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return EXIT_FAILURE;
+    }
+
+    if (target)
+    {
+        if (sys->opened || sys->closed)
+        {
+            // Previous session did not closed yet
+            return EXIT_FAILURE;
+        }
+        else
+        {
+            sys->opened = target;
+            sys->closed = NULL;
+            return EXIT_SUCCESS;
+        }
+    }
+    else
+    {
+        return EXIT_FAILURE;
+    }
+}
+
+/// @brief  Close function for a %DEVNAME%
+static DEV_COM_FUNC_CLOSE(%DEVNAME%Close)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return EXIT_FAILURE;
+    }
+
+    if (sys->opened == target)
+    {
+        globalIntDisable();
+        if (sys->closed)
+        {
+            // Last operation is already finished in ISR
+            sys->closed = NULL;
+            TICKET_REMOVE(sys->tvm);
+        }
+        else
+        {
+            // Close after ISR
+            sys->closed = sys->opened;
+        }
+        sys->opened = NULL;
+        globalIntEnable();
+
+        return EXIT_SUCCESS;
+    }
+    else
+    {
+        return EXIT_FAILURE;
+    }
+}
+
+/// @brief  Send function for a %DEVNAME%
+static DEV_COM_FUNC_SEND(%DEVNAME%Send)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return 0;
+    }
+
+    if (!length)
+    {
+        // Return data count in transmit buffer
+    }
+    else // if (!length)
+    {
+        if (txb == NULL)
+        {
+            // No operation
+        }
+        else // if (txb == NULL)
+        {
+            // Place data into transmit buffer
+            sys->closed = NULL;
+        } // else // if (txb == NULL)
+    } // else // if (!length)
+
+    return length;
+}
+
+/// @brief  Receive function for a %DEVNAME%
+static DEV_COM_FUNC_RECEIVE(%DEVNAME%Receive)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+
+    UNUSED(params); // REMOVE IF USED
+    UNUSED(consts); // REMOVE IF USED
+
+    if (!sys->initialized)
+    {
+        return 0;
+    }
+
+    if (!length)
+    {
+        // Return data count in receive buffer
+    }
+    else // if (!length)
+    {
+        if (rxb == NULL)
+        {
+            // Dismiss received data
+        }
+        else // if (rxb == NULL)
+        {
+            // Place received data to rxb
+            sys->closed = NULL;
+        } // else // if (rxb == NULL)
+    }     // else // if (!length)
+
+    return length;
+}
+
+#if 0 // Enable if %DEVNAME% requires another functionality other than generic ticket functions
+
+/// @brief  Ticket get function for a %DEVNAME%
+static DEV_COM_FUNC_TICKET_GET(%DEVNAME%TicketGet)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+}
+
+/// @brief  Ticket valid function for a %DEVNAME%
+static DEV_COM_FUNC_TICKET_VALID(%DEVNAME%TicketValid)
+{
+    ts%DEVNAMEPC%Params *params       = device->parameters;
+    const ts%DEVNAMEPC%Consts *consts = device->constants;
+    tsDevComSystem *sys               = device->sys;
+}
+
+#endif
+
+/** @} */

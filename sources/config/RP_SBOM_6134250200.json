@@ -1,0 +1,73 @@
+{
+  "spdxVersion": "SPDX-2.2",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "creationInfo": {
+    "created": "2026-02-16T15:30:00Z",
+    "creators": [
+      {
+        "Person": "Omer Cihan Ekiner (cihan.ekiiner@beko.com)"
+      }
+    ]
+  },
+  "name": "BONA H50 MONALIT ULTRA SOFTWARE G91 JIAXPERA VMX1119Y V02R11",
+  "version":"V02R11",
+  "stock": "6134250200",
+  "packages": [
+    { 
+      "packageName": "RCoS2",
+      "packageDescription": "RCoS2 Core Version 0.31, Stock and Revision Version 2.11",
+      "SPDXID": "SPDXRef-pkg:arcelik/rcos@0.31",
+      "packageVersion": "0.31",
+      "externalRefs" : [ {
+        "referenceCategory" : "SECURITY",
+        "referenceLocator" : "cpe:/a:arcelik:rcos:0.31",
+        "referenceType" : "cpe23Type"
+      }]   
+    },
+    {
+      "packageName": "ESP-IDF",
+      "packageDescription": "ESP IDF",
+      "SPDXID": "SPDXRef-pkg:espressif/esp-idf@3.8.78.rc",
+      "packageVersion": "3.8.78.rc",
+      "externalRefs" : [ {
+        "referenceCategory" : "SECURITY",
+        "referenceLocator" : "cpe:2.3:a:espressif:esp-idf:3.8.78:rc:*:*:*:*:*:*",
+        "referenceType" : "cpe23Type"
+      }]   
+    },
+    {
+      "packageName": "Mbed TLS",
+      "packageDescription": "Mbed TLS",
+      "SPDXID": "SPDXRef-pkg:arm/mbed_tls@2.16.5",
+      "packageVersion": "2.16.5",
+      "externalRefs" : [ {
+        "referenceCategory" : "SECURITY",
+        "referenceLocator" : "cpe:2.3:a:arm:mbed_tls:2.16.5:*:*:*:*:*:*:*",
+        "referenceType" : "cpe23Type"
+      }]   
+    },
+    {
+      "packageName": "AWS Embedded C SDK",
+      "packageDescription": "AWS Embedded C SDK",
+      "SPDXID": "SPDXRef-pkg:amazon/amazon_web_services_internet_of_things_device_software_development_kit_v2@0",
+      "packageVersion": "v3.0.1",
+      "externalRefs" : [ {
+        "referenceCategory" : "SECURITY",
+        "referenceLocator" : "cpe:2.3:a:amazon:amazon_web_services_internet_of_things_device_software_development_kit_v2:3.0.1:*:*:*:*:*:*:*",
+        "referenceType" : "cpe23Type"
+      }]   
+    },
+    {
+      "packageName": "Microchip CryptoAuthentication Library",
+      "packageDescription": "Microchip CryptoAuthentication Library",
+      "SPDXID": "SPDXRef-pkg:microchip/cryptoauthlib@20191122",
+      "packageVersion": "20191122",
+      "externalRefs" : [ {
+        "referenceCategory" : "SECURITY",
+        "referenceLocator" : "cpe:2.3:a:microchip:cryptoauthlib:*:*:*:*:*:*:*:*",
+        "referenceType" : "cpe23Type"
+      }]   
+    }
+  ]
+}
+

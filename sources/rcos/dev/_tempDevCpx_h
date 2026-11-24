@@ -1,0 +1,63 @@
+/** @file       %FILENAMELC%.h
+ *  @brief      Header file of %FILENAMEUC% device
+ *  @copyright  (c) %YEAR%-Arcelik - All Rights Reserved
+ *              Permission to use, reproduce, copy, prepare derivative works,
+ *              modify, distribute, perform, display or sell this software and/or
+ *              its documentation for any purpose is prohibited without the express
+ *              written consent of Arcelik A.S.
+ *  @author     %AUTHOR%
+ *  @date       %DATE%
+ */
+#ifndef FILE_%FILENAMEUC%_H
+#define FILE_%FILENAMEUC%_H
+
+/// Includes
+#include "rcos.h"
+
+/// Interface definition for this file,
+/// there should not be any includes after this define.
+#ifndef FILE_%FILENAMEUC%_C
+#define INTERFACE extern
+#else
+#define INTERFACE
+#endif
+
+/**
+ *  @defgroup   %FILENAMEUC% %FILENAMEUC%
+ *  @ingroup    DEV_CPX
+ *  @brief      %BRIEF%
+ *  @{
+ */
+
+/// @brief  Functions for %FILENAMEUC% devices
+INTERFACE const tsDevCpxFuncs devCpx%DEVNAMEPC%Funcs;
+
+/// @brief  Device specific parameters
+typedef struct
+{
+} ts%DEVNAMEPC%Params;
+
+/// @brief  Device specific constants
+typedef struct
+{
+} ts%DEVNAMEPC%Consts;
+
+/** @brief  Create a devCpx
+ *  @param  _name   Name of devCpx object
+ */
+#define DEV_CPX_%FILENAMEUC%_CREATE(_name )     \
+    ts%DEVNAMEPC%Params _name##Params =         \
+    {                                           \
+        /* DONT FORGET TO FILL INITAL VALUES */ \
+    };                                          \
+    const ts%DEVNAMEPC%Consts _name##Consts =   \
+    {                                           \
+        /* DONT FORGET TO FILL INITAL VALUES */ \
+    };                                          \
+    DEV_CPX_CREATE(_name, devCpx%DEVNAMEPC%Funcs, &_name##Params, &_name##Consts)
+
+/** @} */
+
+#undef INTERFACE // Should not let this roam free
+
+#endif // FILE_%FILENAMEUC%_H

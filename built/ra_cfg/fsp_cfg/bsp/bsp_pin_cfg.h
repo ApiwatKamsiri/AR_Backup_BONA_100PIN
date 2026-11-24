@@ -1,0 +1,93 @@
+/* generated configuration header file - do not edit */
+#ifndef BSP_PIN_CFG_H_
+#define BSP_PIN_CFG_H_
+#if __has_include("r_ioport.h")
+#include "r_ioport.h"
+#elif __has_include("r_ioport_b.h")
+#include "r_ioport_b.h"
+#endif
+
+/* Common macro for FSP header files. There is also a corresponding FSP_FOOTER macro at the end of this file. */
+FSP_HEADER
+
+#define HSEN (BSP_IO_PORT_00_PIN_00)
+#define IMSEN (BSP_IO_PORT_00_PIN_01)
+#define TCSEN (BSP_IO_PORT_00_PIN_02)
+#define XSEN (BSP_IO_PORT_00_PIN_03)
+#define FDSEN (BSP_IO_PORT_00_PIN_04)
+#define RDSEN (BSP_IO_PORT_00_PIN_05)
+#define RSEN (BSP_IO_PORT_00_PIN_06)
+#define RML (BSP_IO_PORT_00_PIN_07)
+#define IMFL (BSP_IO_PORT_00_PIN_08)
+#define KML (BSP_IO_PORT_00_PIN_10)
+#define IMTEL (BSP_IO_PORT_00_PIN_11)
+#define XML (BSP_IO_PORT_00_PIN_12)
+#define FSEN (BSP_IO_PORT_00_PIN_13)
+#define WD_IN (BSP_IO_PORT_00_PIN_14)
+#define BSW (BSP_IO_PORT_00_PIN_15)
+#define D_MISO (BSP_IO_PORT_01_PIN_00)
+#define D_MOSI (BSP_IO_PORT_01_PIN_01)
+#define D_SCK (BSP_IO_PORT_01_PIN_02)
+#define D_SS (BSP_IO_PORT_01_PIN_03)
+#define RFG (BSP_IO_PORT_01_PIN_05)
+#define RM (BSP_IO_PORT_01_PIN_06)
+#define FFG (BSP_IO_PORT_01_PIN_07)
+#define U_TXD (BSP_IO_PORT_01_PIN_09)
+#define U_RXD (BSP_IO_PORT_01_PIN_10)
+#define BT_LED (BSP_IO_PORT_01_PIN_11)
+#define XLED (BSP_IO_PORT_01_PIN_12)
+#define RLED (BSP_IO_PORT_01_PIN_13)
+#define FLED (BSP_IO_PORT_01_PIN_14)
+#define KM (BSP_IO_PORT_01_PIN_15)
+#define IM_CW (BSP_IO_PORT_02_PIN_04)
+#define GA (BSP_IO_PORT_02_PIN_05)
+#define GXA (BSP_IO_PORT_02_PIN_06)
+#define GB (BSP_IO_PORT_02_PIN_07)
+#define GXB (BSP_IO_PORT_02_PIN_08)
+#define HUMANSEN (BSP_IO_PORT_02_PIN_12)
+#define R_LED (BSP_IO_PORT_02_PIN_13)
+#define TEST1 (BSP_IO_PORT_02_PIN_14)
+#define TEST2 (BSP_IO_PORT_02_PIN_15)
+#define XM (BSP_IO_PORT_03_PIN_01)
+#define GMOTOR (BSP_IO_PORT_03_PIN_02)
+#define ID_SOL (BSP_IO_PORT_03_PIN_03)
+#define WD1 (BSP_IO_PORT_03_PIN_04)
+#define IMM_CCW (BSP_IO_PORT_03_PIN_05)
+#define IMM_CW (BSP_IO_PORT_03_PIN_06)
+#define IM_CCW (BSP_IO_PORT_03_PIN_07)
+#define IMLSW (BSP_IO_PORT_04_PIN_00)
+#define C_TXD (BSP_IO_PORT_04_PIN_01)
+#define C_RXD (BSP_IO_PORT_04_PIN_02)
+#define ARM (BSP_IO_PORT_04_PIN_03)
+#define n_Fault_GasValve (BSP_IO_PORT_04_PIN_04)
+#define COMP_OUT (BSP_IO_PORT_04_PIN_05)
+#define n_Fault_Ice (BSP_IO_PORT_04_PIN_06)
+#define SDA (BSP_IO_PORT_04_PIN_07)
+#define SCL (BSP_IO_PORT_04_PIN_08)
+#define W_RXD (BSP_IO_PORT_04_PIN_10)
+#define W_TXD (BSP_IO_PORT_04_PIN_11)
+#define DOORR (BSP_IO_PORT_04_PIN_13)
+#define DOORF (BSP_IO_PORT_04_PIN_14)
+#define XHEAT (BSP_IO_PORT_05_PIN_00)
+#define IMHEAT (BSP_IO_PORT_05_PIN_01)
+#define RPHEAT (BSP_IO_PORT_05_PIN_02)
+#define SPHEAT (BSP_IO_PORT_05_PIN_03)
+#define RDEF (BSP_IO_PORT_05_PIN_04)
+#define Spare_HEAT (BSP_IO_PORT_05_PIN_05)
+#define FM (BSP_IO_PORT_06_PIN_00)
+#define KFG (BSP_IO_PORT_06_PIN_01)
+#define BUZ (BSP_IO_PORT_06_PIN_02)
+#define FDEF (BSP_IO_PORT_06_PIN_03)
+#define IMF (BSP_IO_PORT_06_PIN_08)
+#define B_LED (BSP_IO_PORT_06_PIN_09)
+#define G_LED (BSP_IO_PORT_06_PIN_10)
+#define n_Fault_Dispenser (BSP_IO_PORT_07_PIN_14)
+#define WD2 (BSP_IO_PORT_08_PIN_08)
+#define IC_SOL (BSP_IO_PORT_08_PIN_09)
+extern const ioport_cfg_t g_bsp_pin_cfg; /* R7FA2L1AB3CFP */
+
+void BSP_PinConfigSecurityInit();
+
+/* Common macro for FSP header files. There is also a corresponding FSP_HEADER macro at the top of this file. */
+FSP_FOOTER
+#endif /* BSP_PIN_CFG_H_ */

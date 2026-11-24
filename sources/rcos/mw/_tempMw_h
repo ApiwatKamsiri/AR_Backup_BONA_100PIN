@@ -1,0 +1,66 @@
+/** @file       %FILENAMELC%.h
+ *  @brief      %FILENAMEUC% middleware header file
+ *  @copyright  (c) %YEAR%-Arcelik - All Rights Reserved
+ *              Permission to use, reproduce, copy, prepare derivative works,
+ *              modify, distribute, perform, display or sell this software and/or
+ *              its documentation for any purpose is prohibited without the express
+ *              written consent of Arcelik A.S.
+ *  @author     %AUTHOR%
+ *  @date       %DATE%
+ */
+#ifndef FILE_%FILENAMEUC%_H
+#define FILE_%FILENAMEUC%_H
+
+/** INCLUDES ******************************************************************/
+#include "rcos_main.h"
+
+/// Interface definition for this file,
+/// there should not be any includes after this define.
+#ifndef FILE_%FILENAMEUC%_C
+#define INTERFACE extern
+#else
+#define INTERFACE
+#endif
+
+/**
+ *  @defgroup   %FILENAMEUC% %FILENAMEUC%
+ *  @ingroup    MW
+ *  @brief      %BRIEF%
+ *  @{
+ */
+
+/// @brief  Events of a %MWNAMEPC% process
+typedef enum
+{
+} te%MWNAMEPC%Events;
+
+/// @brief  Parameters of a %MWNAMEPC% process
+typedef struct
+{
+} ts%MWNAMEPC%Params;
+
+/// @brief  Constants of a %MWNAMEPC% process
+typedef struct
+{
+} ts%MWNAMEPC%Consts;
+
+/** @brief  %MWNAMEPC% process object creation macro
+ *  @param  _name   Name of process object
+ *  @param  _enum   Process enumeration for this object
+ */
+#define PROCESS_%FILENAMEUC%_CREATE(_name, _enum) \
+    ts%MWNAMEPC%Params _name##Params =            \
+        {                                         \
+        /* DONT FORGET TO FILL INITAL VALUES */   \
+    };                                            \
+    const ts%MWNAMEPC%Consts _name##Consts =      \
+        {                                         \
+        /* DONT FORGET TO FILL INITAL VALUES */   \
+    };                                            \
+    PROCESS_CREATE(_name, %MWNAME%Init, %MWNAME%Deinit, _enum, &_name##Params, &_name##Consts)
+
+/** @} */
+
+#undef INTERFACE // Should not let this roam free
+
+#endif // FILE_%FILENAMEUC%_H
