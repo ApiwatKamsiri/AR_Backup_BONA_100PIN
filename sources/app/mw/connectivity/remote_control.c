@@ -533,7 +533,7 @@ unsigned char getCabinTemp(unsigned char index)
     {
     case _CabinMode_FF:
       if (refrigerator_R.Cabin[index].sets.user.functions.Quick)
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50        
         result = 14 + refrigerator_R.Values.tempType * 64;
 #else
         result = 6 + refrigerator_R.Values.tempType * 64;
@@ -545,7 +545,7 @@ unsigned char getCabinTemp(unsigned char index)
         if (refrigerator_R.Values.tempType == _TempType_Celcius)
         {
           result = refrigerator_R.Cabin[index].sets.user.FF + refrigerator_R.Values.tempType * 64;
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
           if( refrigerator_R.Cabin[0].sets.user.FF == 6)  //15 selected as base , cause of setCabin max value can be 14
             result = 15 + refrigerator_R.Cabin[0].sets.user.FF; //15+6 = 21 --> 3
           if( refrigerator_R.Cabin[0].sets.user.FF == 1)
@@ -576,7 +576,7 @@ unsigned char getCabinTemp(unsigned char index)
             result = 0x7F; // burasi sonradan belki d?zenlenebilir.
           else
             result = refrigerator_R.Cabin[index].sets.user.FRZ + refrigerator_R.Values.tempType * 64;
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
           if( refrigerator_R.Cabin[1].sets.user.FRZ == 3) //33 selected as base , cause of setCabin max value can be 32
             result = 33 + refrigerator_R.Cabin[1].sets.user.FRZ; //33+3 = 36 --> -19
           if( refrigerator_R.Cabin[1].sets.user.FRZ == 1)

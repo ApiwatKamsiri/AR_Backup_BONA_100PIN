@@ -5,6 +5,9 @@
 #include "../ui_proc.h"
 
 void ceDisplayOff(tsUiProcParams *params, bool cmdReceived);
+#ifdef ALPS_H50
+void ceDisplayAutoDoor(tsUiProcParams *params, bool cmdReceived);
+#endif
 void ceDisplayKeyLock(tsUiProcParams *params, bool cmdReceived);
 void ceDisplayKeyLockDspr(tsUiProcParams *params, bool cmdReceived);
 void ceDisplaySetDim(tsUiProcParams *params, bool cmdReceived);

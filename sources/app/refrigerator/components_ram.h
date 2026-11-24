@@ -147,6 +147,27 @@ typedef struct{
   enVacuumBoxValues value;
 }stVacuumBox_Ram;
 
+#ifdef ALPS_H50
+typedef enum{
+  _DoorAssistMotor_STOP,
+  _DoorAssistMotor_FWD,
+  _DoorAssistMotor_RVS,
+}enDoorAssistMotorValues;
+
+typedef struct{
+  enDoorAssistMotorValues value;
+}stDoorAssistMotor_Ram;
+
+typedef enum{
+  _DoorAssistOut_OFF,
+  _DoorAssistOut_ON,
+}enDoorAssistOutValues;
+
+typedef struct{
+  enDoorAssistOutValues value;
+  unsigned short speedOrPWM;
+}stDoorAssistOut_Ram;
+#endif
 
 typedef enum
 {

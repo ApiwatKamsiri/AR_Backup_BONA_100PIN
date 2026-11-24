@@ -215,6 +215,9 @@
                     <state>New_algorithm</state>
                     <state>SERVICEMODEavailable</state>
                     <state>COMP_AVAILABLE=1</state>
+                    <state>ALPS_H50</state>
+                    <state>TempSetting4Lv</state>
+                    <state>HOSHI_H30</state>
                     <state>ResetRecord</state>
                     <state>_RA_ORDINAL=1</state>
                     <state>_RA_CORE=CM23</state>
@@ -2456,6 +2459,12 @@
                 <name>$PROJ_DIR$\ra\fsp\inc\api\r_cgc_api.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\ra\fsp\src\r_dtc\r_dtc.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\ra\fsp\inc\instances\r_dtc.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\ra\fsp\inc\api\r_elc_api.h</name>
             </file>
             <file>
@@ -2490,6 +2499,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\ra\fsp\inc\api\r_ioport_api.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\ra\fsp\src\r_iwdt\r_iwdt.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\ra\fsp\inc\instances\r_iwdt.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\ra\fsp\src\r_sci_uart\r_sci_uart.c</name>
@@ -2794,6 +2809,12 @@
                     </file>
                     <file>
                         <name>$PROJ_DIR$\..\sources\app\cabin\components\cabin_comp_flap.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\sources\app\cabin\components\cabin_door_assistunit.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\sources\app\cabin\components\cabin_door_assistunit.h</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\..\sources\app\cabin\components\cabin_fan.c</name>

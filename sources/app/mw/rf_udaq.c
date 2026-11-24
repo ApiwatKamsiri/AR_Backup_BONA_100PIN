@@ -269,6 +269,10 @@ const tsUdaqItem udaqMapFTC[] = {
     {(uint8_t *)(&refrigerator_R.Cooler.components.compressor.Stock.Revision),1},       // 56
     {(uint8_t *)(&refrigerator_R.Cooler.components.compressor.Stock.CoreVersion),1},    // 57
     {(uint8_t *)(&refrigerator_R.Cooler.components.compressor.Stock.CoreRevision),1},   // 58
+#ifdef ALPS_H50
+    {(uint8_t *)(&FTC.DUTY.index),1},                  // 59
+    {(uint8_t *)(&FTC.DUTY.value),1},                  // 60
+#endif
 };
 
 tsTarget udaqTarget = {

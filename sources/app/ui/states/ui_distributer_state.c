@@ -492,12 +492,12 @@ void uiDistributerStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *
 {
     tsUiRam *uiP = params->ui;
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     if (!params->rf->Values.keyLock)
     {
         ceServiceStart(uiP, isEvent(eDisplayEventServiceMode));
     }
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
     /*
   if( params->rf->Values.doorsAlert &&

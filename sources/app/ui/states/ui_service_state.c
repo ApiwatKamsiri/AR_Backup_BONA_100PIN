@@ -15,16 +15,16 @@
 #include "app/refrigerator/procedures/rf_errors.h"
 #include "dev/display_spi.h"
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
 #include "app/ice_machine/ice_machine_procedures.h"
 #include "app/water_source/water_source_procedures.h"
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
 #ifdef SERVICEMODEavailable
 
 #define _UI_ServiceAutoExitTime20Ms (10u * 60u * 50u)
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
 #define _UI_ServiceTestTimeout20Ms (_SEC_T20ms(50))
 #define _UI_ServiceBlinkToggle20Ms 25
 #define _UI_ServiceWarningBeepInterval20Ms 75
@@ -138,7 +138,7 @@ static void _uiServiceStartPumpTest(tsUiProcParams *params)
     iceMachineP->values.waterPumpTimer = (iceMachineP->sets.waterPumpTime * 5);
     _uiServiceSetIceMachineWaterDesired(params, _WaterSourceValue_PUMP);
 }
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
 static unsigned short uiServiceAutoExitTimer20Ms;
 
@@ -150,13 +150,13 @@ void uiServiceStateInit(const tsUiProcConsts *consts, tsUiProcParams *params)
     uiP->states.service.timer = 0;
     uiP->states.service.state = _UI_ServiceState_BlinkLed;
     uiServiceAutoExitTimer20Ms = _UI_ServiceAutoExitTime20Ms;
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     _uiServiceStopAllTests(params);
     uiServiceIceDumpCompleted = false;
     uiServicePumpCompleted = false;
     uiServiceWarningBeepRemaining = 0;
     uiServiceWarningBeepTimer20Ms = 0;
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
     uiSmCompsInit(consts, params);
     uiSmCompsCheckAll(consts, params);
     uiSmCompsCloseAll(consts, params);
@@ -175,13 +175,13 @@ void uiServiceState20MsTask(const tsUiProcConsts *consts, tsUiProcParams *params
 
         if (!uiServiceAutoExitTimer20Ms)
         {
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
             _uiServiceStopAllTests(params);
             uiServiceIceDumpCompleted = false;
             uiServicePumpCompleted = false;
             uiP->dspPacket.funcs.ledIceOn = false;
             uiP->dspPacket.funcs.ledEcoExtra = false;
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
             ceServiceExit(uiP, true);
         }
     }
@@ -189,7 +189,7 @@ void uiServiceState20MsTask(const tsUiProcConsts *consts, tsUiProcParams *params
     if (uiP->states.service.timer)
         uiP->states.service.timer--;
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     if (uiServiceWarningBeepRemaining)
     {
         if (uiServiceWarningBeepTimer20Ms)
@@ -237,7 +237,7 @@ void uiServiceState20MsTask(const tsUiProcConsts *consts, tsUiProcParams *params
             uiServicePumpTest.ledBlinkState = !uiServicePumpTest.ledBlinkState;
         }
     }
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
     uiSmComps20MsTask(consts, params);
 }
@@ -363,7 +363,7 @@ void uiServiceStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
         break;
 
     case _UI_ServiceState_ShowNTC:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         uiDspAllOff(consts, params);
         uiP->dspPacket.funcs.ledIceOn = uiServiceIceDumpCompleted;
         uiP->dspPacket.funcs.ledEcoExtra = uiServicePumpCompleted;
@@ -412,10 +412,10 @@ void uiServiceStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
 
         uiDspIceCreamData(consts, params, eDisplaySpecialsAllOff, eDisplayCabinDataTypeSpecial);
         uiDspDoorsAtQuick(consts, params);
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
     case _UI_ServiceState_AllOnAllOff:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         {
             stIceMachine_Ram *iceMachineP = &params->rf->IceMachine;
 
@@ -526,11 +526,11 @@ void uiServiceStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
 
         uiDspIceCreamData(consts, params, eDisplaySpecialsAllOff, eDisplayCabinDataTypeSpecial);
         uiDspDoorsAtQuick(consts, params);
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
 
     case _UI_ServiceState_ShowComponent:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         {
             stIceMachine_Ram *iceMachineP = &params->rf->IceMachine;
 
@@ -626,7 +626,7 @@ void uiServiceStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
 
         uiDspIceCreamData(consts, params, eDisplaySpecialsAllOff, eDisplayCabinDataTypeSpecial);
         uiDspDoorsAtQuick(consts, params);
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
 
     case _UI_ServiceState_ShowParameter:
@@ -683,23 +683,23 @@ void uiServiceStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
 void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *params)
 {
     tsUiRam *uiP = params->ui;
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     bool passwordEvent = isEvent(eDisplayEventPassword);
     bool serviceModeEvent = isEvent(eDisplayEventServiceMode);
     bool testsRunning = uiServiceIceDumpTest.running || uiServicePumpTest.running;
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
     if (uiP->dspValues.receivedEvent == eDisplayEventKeyLock)
         uiP->dspValues.receivedEvent = eDisplayEventStateMenu;
 
     if (!params->rf->Values.keyLock)
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         ceServiceExit(uiP, passwordEvent);
 #else
         ceServiceExit(uiP, isEvent(eDisplayEventPassword));
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     if (serviceModeEvent && !testsRunning)
     {
         uiServiceWarningBeepRemaining = 0;
@@ -717,7 +717,7 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
         uiP->dspPacket.funcs.ledIceOn = false;
         uiP->dspPacket.funcs.ledEcoExtra = false;
     }
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
     switch (uiP->states.service.state)
     {
@@ -740,7 +740,7 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
         break;
 
     case _UI_ServiceState_ShowNTC:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         if (isEvent(eDisplayEventIceOn))
         {
             _uiServiceStartIceDumpTest(params);
@@ -759,11 +759,11 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
         ceServiceAllOff(uiP, isEvent(eDisplayEventVacation));
 
         ceServiceSetState(uiP, _UI_ServiceState_AllOnAllOff, isEvent(eDisplayEventStateMenu));
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
 
     case _UI_ServiceState_AllOnAllOff:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         if (isEvent(eDisplayEventIceOn))
         {
             _uiServiceStartIceDumpTest(params);
@@ -774,11 +774,11 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
         ceServiceSpecialsChange(uiP, isEvent((teDisplayEvent)(eDisplayEventC0SetDown + consts->rf->Parameters.displayValue)));
 
         ceServiceSetState(uiP, _UI_ServiceState_ShowComponent, isEvent(eDisplayEventStateMenu));
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
 
     case _UI_ServiceState_ShowComponent:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         if (isEvent(eDisplayEventEcoWhirlpool) || isEvent(eDisplayEventEcoExtra))
         {
             _uiServiceStartPumpTest(params);
@@ -796,7 +796,7 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
         ceServiceAllOff(uiP, isEvent(eDisplayEventVacation));
 
         ceServiceSetState(uiP, _UI_ServiceState_ShowParameter, isEvent(eDisplayEventStateMenu));
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
 
     case _UI_ServiceState_ShowParameter:
@@ -812,7 +812,7 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
 
     case _UI_ServiceState_BlinkLed:
     default:
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
         uiServiceIceDumpCompleted = false;
         uiServicePumpCompleted = false;
         for (unsigned char i = eDisplayEventC0SetUp; i < eDisplayEventIceCreamMchOnOff; i++)
@@ -828,7 +828,7 @@ void uiServiceStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *para
         }
         ceServiceSetState(uiP, _UI_ServiceState_VersionRevision, isEvent(eDisplayEventSelectCabin));
         ceServiceSetState(uiP, _UI_ServiceState_VersionRevision, isEvent(eDisplayEventSetCabin));
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
         break;
     }
 

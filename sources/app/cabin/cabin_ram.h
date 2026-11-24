@@ -56,6 +56,12 @@ typedef struct
     stVacuumBox_Ram VacuumBox;
     stHeater_Ram VacuumBoxHeater;
     stVioLed_Ram violed;
+#ifdef ALPS_H50
+    stSwitch_Ram doorAssistInputSwitch;   
+    stTempSensor_Ram doorAssistMotorOverCurrentSensor; 
+    stDoorAssistMotor_Ram doorAssistMotor;
+    stDoorAssistOut_Ram doorAssistOut;
+#endif   
 } stCabinComponents_Ram;
 
 typedef struct
@@ -219,7 +225,21 @@ typedef struct
     unsigned short defrostDoorOpenedTimer;
     unsigned short doorsOpenedLevelIncreaseTimer;
     unsigned short afterDefrostTimer;
-
+    
+#ifdef ALPS_H50
+    struct
+    {    
+        unsigned char request;
+        unsigned char initRequest;
+        unsigned char operationFlag;
+        unsigned short procTimer;
+        unsigned char delayTimer;
+        unsigned char proc;
+        unsigned char initProc;
+//        signed short loadCurrent;
+//        signed short loadCurrent2;
+    } doorAssist;
+#endif
     struct
     {
         unsigned char evaChecked : 1;

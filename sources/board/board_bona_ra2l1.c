@@ -70,11 +70,19 @@ DEV_IO_GPIO_CREATE(digInTEST1, TEST1, 0)
 DEV_IO_GPIO_CREATE(digInTEST2, TEST2, 0)
 DEV_IO_GPIO_CREATE(digInNFaultGasValve, n_Fault_GasValve, 0)
 DEV_IO_GPIO_CREATE(digInNFaultIce, n_Fault_Ice, 0)
+#ifndef ALPS_H50
 DEV_IO_GPIO_CREATE(digInNFaultDispenser, n_Fault_Dispenser, 0)
+#endif
 DEV_IO_GPIO_CREATE(digInHUMANSEN, HUMANSEN, 1)
 DEV_IO_GPIO_CREATE(digInBSW, BSW, 0)
 DEV_IO_GPIO_CREATE(digInSOLVER, SOLVER, 0)
 
+#ifdef ALPS_H50
+DEV_IO_GPIO_CREATE(digInDASIN1, DASIN1, 0)
+DEV_IO_GPIO_CREATE(digInDASIN2, DASIN2, 0)
+DEV_IO_GPIO_CREATE(digInDASIN3, DASIN3, 0)
+DEV_IO_GPIO_CREATE(digInDASIN4, DASIN4, 0)
+#endif
 
 
 /******/
@@ -90,10 +98,18 @@ DEV_IO_GPIO_CREATE(revDigInTEST1, TEST1, 0)
 DEV_IO_GPIO_CREATE(revDigInTEST2, TEST2, 0)
 DEV_IO_GPIO_CREATE(revDigInNFaultGasValve, n_Fault_GasValve, 0)
 DEV_IO_GPIO_CREATE(revDigInNFaultIce, n_Fault_Ice, 0)
+#ifndef ALPS_H50
 DEV_IO_GPIO_CREATE(revDigInNFaultDispenser, n_Fault_Dispenser, 0)
+#endif
 DEV_IO_GPIO_CREATE(revDigInHUMANSEN, HUMANSEN, 1)
 DEV_IO_GPIO_CREATE(revDigInBSW, BSW, 0)
 DEV_IO_GPIO_CREATE(revDigInSOLVER, SOLVER, 0)
+#ifdef ALPS_H50
+DEV_IO_GPIO_CREATE(revDigInDASIN1, DASIN1, 0)
+DEV_IO_GPIO_CREATE(revDigInDASIN2, DASIN2, 0)
+DEV_IO_GPIO_CREATE(revDigInDASIN3, DASIN3, 0)
+DEV_IO_GPIO_CREATE(revDigInDASIN4, DASIN4, 0)
+#endif
 
 /*****/
 
@@ -108,10 +124,18 @@ const tsDevIo *digInputs[] = {
         &digInTEST2,
         &digInNFaultGasValve,
         &digInNFaultIce,
+#ifndef ALPS_H50
         &digInNFaultDispenser,
+#endif        
         &digInHUMANSEN,
         &digInBSW,
         &digInSOLVER,
+#ifdef ALPS_H50        
+        &digInDASIN1,
+        &digInDASIN2,
+        &digInDASIN3,
+        &digInDASIN4,
+#endif        
 };
 
 const tsDevIo *revDigInputs[] = {
@@ -124,10 +148,18 @@ const tsDevIo *revDigInputs[] = {
         &revDigInTEST2, 
         &revDigInNFaultGasValve,
         &revDigInNFaultIce,
+#ifndef ALPS_H50        
         &revDigInNFaultDispenser,
+#endif        
         &revDigInHUMANSEN,
         &revDigInBSW,
         &revDigInSOLVER,
+#ifdef ALPS_H50        
+        &revDigInDASIN1,
+        &revDigInDASIN2,
+        &revDigInDASIN3,
+        &revDigInDASIN4,
+#endif        
 };
 
 
@@ -135,6 +167,7 @@ const tsDevIo *revDigInputs[] = {
 
 #include "dev/debounce_patch.h"
 DEV_CPX_DEBOUNCE_CREATE(debounceCore, 20,
+#ifndef ALPS_H50
                                                 DEBOUNCE_ITEM(digInDOORR, 5),
                                                 DEBOUNCE_ITEM(digInDOORF, 5),
                                                 DEBOUNCE_ITEM(digInIMLSW, 5),
@@ -162,10 +195,47 @@ DEV_CPX_DEBOUNCE_CREATE(debounceCore, 20,
                                                 DEBOUNCE_ITEM(revDigInNFaultDispenser, 5),
                                                 DEBOUNCE_ITEM(revDigInHUMANSEN, 5),
                                                 DEBOUNCE_ITEM(revDigInBSW, 5),
-                                                DEBOUNCE_ITEM(revDigInSOLVER, 5)) 
+                                                DEBOUNCE_ITEM(revDigInSOLVER, 5))   
+                                                                                             
+#else
+                                                DEBOUNCE_ITEM(digInDOORR, 5),
+                                                DEBOUNCE_ITEM(digInDOORF, 5),
+                                                DEBOUNCE_ITEM(digInIMLSW, 5),
+                                                DEBOUNCE_ITEM(digInFFG, 5),
+                                                DEBOUNCE_ITEM(digInRFG, 5),
+                                                DEBOUNCE_ITEM(digInTEST1, 5),
+                                                DEBOUNCE_ITEM(digInTEST2, 5),
+                                                DEBOUNCE_ITEM(digInNFaultGasValve, 5),
+                                                DEBOUNCE_ITEM(digInNFaultIce, 5),
+                                                DEBOUNCE_ITEM(digInHUMANSEN, 5),
+                                                DEBOUNCE_ITEM(digInBSW, 5),
+                                                DEBOUNCE_ITEM(digInSOLVER, 5),
+                                                DEBOUNCE_ITEM(digInDASIN1, 5),
+                                                DEBOUNCE_ITEM(digInDASIN2, 5),
+                                                DEBOUNCE_ITEM(digInDASIN3, 5),
+                                                DEBOUNCE_ITEM(digInDASIN4, 5),
+                                                
+                                                // Reversed inputs
+                                                DEBOUNCE_ITEM(revDigInDOORR, 5),
+                                                DEBOUNCE_ITEM(revDigInDOORF, 5),
+                                                DEBOUNCE_ITEM(revDigInIMLSW, 5),
+                                                DEBOUNCE_ITEM(revDigInFFG, 5),
+                                                DEBOUNCE_ITEM(revDigInRFG, 5),
+                                                DEBOUNCE_ITEM(revDigInTEST1, 5),
+                                                DEBOUNCE_ITEM(revDigInTEST2, 5),
+                                                DEBOUNCE_ITEM(revDigInNFaultGasValve, 5),
+                                                DEBOUNCE_ITEM(revDigInNFaultIce, 5),
+                                                DEBOUNCE_ITEM(revDigInHUMANSEN, 5),
+                                                DEBOUNCE_ITEM(revDigInBSW, 5),
+                                                DEBOUNCE_ITEM(revDigInSOLVER, 5),
+                                                DEBOUNCE_ITEM(revDigInDASIN1, 5),
+                                                DEBOUNCE_ITEM(revDigInDASIN2, 5),
+                                                DEBOUNCE_ITEM(revDigInDASIN3, 5),
+                                                DEBOUNCE_ITEM(revDigInDASIN4, 5)) 
+#endif
 
                                                 
-
+#ifndef ALPS_H50
 DEV_IO_DEBOUNCE_CREATE(debDOORR, debounceCore, 0)
 DEV_IO_DEBOUNCE_CREATE(debDOORF, debounceCore, 1)
 DEV_IO_DEBOUNCE_CREATE(debIMLSW, debounceCore, 2)
@@ -180,6 +250,24 @@ DEV_IO_DEBOUNCE_CREATE(debHUMANSEN, debounceCore, 10)
 DEV_IO_DEBOUNCE_CREATE(debBSW, debounceCore, 11)
 DEV_IO_DEBOUNCE_CREATE(debSOLVER, debounceCore, 12)
 
+#else
+DEV_IO_DEBOUNCE_CREATE(debDOORR, debounceCore, 0)
+DEV_IO_DEBOUNCE_CREATE(debDOORF, debounceCore, 1)
+DEV_IO_DEBOUNCE_CREATE(debIMLSW, debounceCore, 2)
+DEV_IO_DEBOUNCE_CREATE(debFFG, debounceCore, 3)
+DEV_IO_DEBOUNCE_CREATE(debRFG, debounceCore, 4)
+DEV_IO_DEBOUNCE_CREATE(debTEST1, debounceCore, 5)
+DEV_IO_DEBOUNCE_CREATE(debTEST2, debounceCore, 6)
+DEV_IO_DEBOUNCE_CREATE(debNFaultGasValve, debounceCore, 7)
+DEV_IO_DEBOUNCE_CREATE(debNFaultIce, debounceCore, 8)
+DEV_IO_DEBOUNCE_CREATE(debHUMANSEN, debounceCore, 9)
+DEV_IO_DEBOUNCE_CREATE(debBSW, debounceCore, 10)
+DEV_IO_DEBOUNCE_CREATE(debSOLVER, debounceCore, 11)
+DEV_IO_DEBOUNCE_CREATE(debDASIN1, debounceCore, 12)
+DEV_IO_DEBOUNCE_CREATE(debDASIN2, debounceCore, 13)
+DEV_IO_DEBOUNCE_CREATE(debDASIN3, debounceCore, 14)
+DEV_IO_DEBOUNCE_CREATE(debDASIN4, debounceCore, 15)
+#endif
 
 const tsDevIo *debDigInputs[] = {
         &debDOORR,
@@ -191,13 +279,22 @@ const tsDevIo *debDigInputs[] = {
         &debTEST2,
         &debNFaultGasValve,
         &debNFaultIce,
+#ifndef ALPS_H50
         &debNFaultDispenser,
+#endif
         &debHUMANSEN,
         &debBSW,
         &debSOLVER,
+#ifdef ALPS_H50
+        &debDASIN1,
+        &debDASIN2,
+        &debDASIN3,
+        &debDASIN4,
+#endif
 };
 
 // Reversed debounced digital inputs
+#ifndef ALPS_H50
 DEV_IO_DEBOUNCE_CREATE(debRevDOORR, debounceCore, 13)
 DEV_IO_DEBOUNCE_CREATE(debRevDOORF, debounceCore, 14)
 DEV_IO_DEBOUNCE_CREATE(debRevIMLSW, debounceCore, 15)
@@ -211,6 +308,24 @@ DEV_IO_DEBOUNCE_CREATE(debRevNFaultDispenser, debounceCore, 22)
 DEV_IO_DEBOUNCE_CREATE(debRevHUMANSEN, debounceCore, 23)
 DEV_IO_DEBOUNCE_CREATE(debRevBSW, debounceCore, 24)
 DEV_IO_DEBOUNCE_CREATE(debRevSOLVER, debounceCore, 25)
+#else
+DEV_IO_DEBOUNCE_CREATE(debRevDOORR, debounceCore, 16)
+DEV_IO_DEBOUNCE_CREATE(debRevDOORF, debounceCore, 17)
+DEV_IO_DEBOUNCE_CREATE(debRevIMLSW, debounceCore, 18)
+DEV_IO_DEBOUNCE_CREATE(debRevFFG, debounceCore, 19)
+DEV_IO_DEBOUNCE_CREATE(debRevRFG, debounceCore, 20)
+DEV_IO_DEBOUNCE_CREATE(debRevTEST1, debounceCore, 21)
+DEV_IO_DEBOUNCE_CREATE(debRevTEST2, debounceCore, 22)
+DEV_IO_DEBOUNCE_CREATE(debRevNFaultGasValve, debounceCore, 23)
+DEV_IO_DEBOUNCE_CREATE(debRevNFaultIce, debounceCore, 24)
+DEV_IO_DEBOUNCE_CREATE(debRevHUMANSEN, debounceCore, 25)
+DEV_IO_DEBOUNCE_CREATE(debRevBSW, debounceCore, 26)
+DEV_IO_DEBOUNCE_CREATE(debRevSOLVER, debounceCore, 27)
+DEV_IO_DEBOUNCE_CREATE(debRevDASIN1, debounceCore, 28)
+DEV_IO_DEBOUNCE_CREATE(debRevDASIN2, debounceCore, 29)
+DEV_IO_DEBOUNCE_CREATE(debRevDASIN3, debounceCore, 30)
+DEV_IO_DEBOUNCE_CREATE(debRevDASIN4, debounceCore, 31)
+#endif
 
 
 const tsDevIo *debRevDigInputs[] = {
@@ -223,10 +338,18 @@ const tsDevIo *debRevDigInputs[] = {
         &debRevTEST2,
         &debRevNFaultGasValve,
         &debRevNFaultIce,
+#ifndef ALPS_H50
         &debRevNFaultDispenser,
+#endif
         &debRevHUMANSEN,
         &debRevBSW,
         &debRevSOLVER,
+#ifdef ALPS_H50
+        &debRevDASIN1,
+        &debRevDASIN2,
+        &debRevDASIN3,
+        &debRevDASIN4,
+#endif
 };
 
 
@@ -264,18 +387,30 @@ DEV_IO_GPIO_CREATE(digOutIM_MOTOR_CCW, IMM_CCW, 1)
 DEV_IO_GPIO_CREATE(digOutID_SOL, ID_SOL, 1)
 DEV_IO_GPIO_CREATE(digOutID_GMOTOR, GMOTOR, 1)*/
 //DEV_IO_GPIO_CREATE(vccDriveEn, INV_SHUTDOWN, 1)         //APW : Disable for new MCU
-DEV_IO_GPIO_CREATE(digOutARM, ARM, 1)   
+DEV_IO_GPIO_CREATE(digOutARM, ARM, 1)
+#ifdef ALPS_H50
+DEV_IO_GPIO_CREATE(digOutASSEL, ASSEL, 1)   
+DEV_IO_GPIO_CREATE(digOutASFWD, ASFWD, 1)   
+DEV_IO_GPIO_CREATE(digOutASRVS, ASRVS, 1)   
+DEV_IO_GPIO_CREATE(digOutASOUT, ASOUT, 1)
+#endif
 
 
 #include "dev/bdc_motor.h"
 DEV_IO_BDC_MOTOR_CREATE(bdcIceMotor, digOutIM_MOTOR_CW, digOutIM_MOTOR_CCW, 500)
 DEV_IO_BDC_MOTOR_CREATE(bdcIcePumpMotor, digOutIM_PUMP_CW, digOutIM_PUMP_CCW, 500)
 DEV_IO_BDC_MOTOR_CREATE(bdcDispPumpMotor, digOutWD_PUMP_CW, digOutWD_PUMP_CCW, 500)
+#ifdef ALPS_H50
+DEV_IO_BDC_MOTOR_CREATE(bdcAutoDoorMotor, digOutASFWD, digOutASRVS, 500)
+#endif
 
 const tsDevIo *bdcMotors[] = {
 	&bdcIceMotor,
         &bdcIcePumpMotor,
         &bdcDispPumpMotor,
+#ifdef ALPS_H50
+        &bdcAutoDoorMotor,
+#endif
 };
 
 /******/
@@ -303,6 +438,12 @@ const tsDevIo *digOutputs[] = {
         &digOutID_GMOTOR,*/
         //&vccDriveEn,
         &digOutARM, 
+#ifdef ALPS_H50
+        &digOutASSEL,
+        &digOutASFWD,
+        &digOutASRVS,
+        &digOutASOUT,
+#endif
 };
 
 
@@ -328,6 +469,7 @@ const tsDevIo *stepperMotors[] = {
 ///*************************************    ADC Inputs    *****************************************/
 #include "rcos/dev/ra2/adc.h"       //cadd
 DEV_CPX_ADC_CORE_CREATE(adcCore, ADC_12_BUS, adcIsr  , 20 /*refresh time*/
+#ifndef ALPS_H50
 						/* FF Hava RSEN */          ,ADC_CHANNEL_12
 						/* FF Eva  RDSEN*/          ,ADC_CHANNEL_11
 						/* FRZ Hava FSEN*/          ,ADC_CHANNEL_8
@@ -342,6 +484,23 @@ DEV_CPX_ADC_CORE_CREATE(adcCore, ADC_12_BUS, adcIsr  , 20 /*refresh time*/
                                                 /* LockVacuumPump XML*/     ,ADC_CHANNEL_7
                                                 /* LockWDispenPump WD_IN*/  ,ADC_CHANNEL_9
                                                 /* LockIMEmpty IMTEL*/      ,ADC_CHANNEL_6)
+#else
+						/* FF Hava RSEN */          ,ADC_CHANNEL_12
+						/* FF Eva  RDSEN*/          ,ADC_CHANNEL_11
+						/* FRZ Hava FSEN*/          ,ADC_CHANNEL_8
+						/* FRZ Eva FDSEN*/          ,ADC_CHANNEL_4
+						/* ICE temp IMSEN*/         ,ADC_CHANNEL_1
+						/* Amb Temp TCSEN*/         ,ADC_CHANNEL_2
+                                                /* Humidity HSEN*/          ,ADC_CHANNEL_0
+                                                /* Vacuum Box XSEN*/        ,ADC_CHANNEL_3
+                                                /* LockFFfan RML*/          ,ADC_CHANNEL_13
+                                                /* LockIcefan IMFL*/        ,ADC_CHANNEL_14
+                                                /* LockConfan KML*/         ,ADC_CHANNEL_5
+                                                /* LockVacuumPump XML*/     ,ADC_CHANNEL_7
+                                                /* LockWDispenPump WD_IN*/  ,ADC_CHANNEL_9
+                                                /* LockIMEmpty IMTEL*/      ,ADC_CHANNEL_6
+                                                /* Auto Door Curent ASIN*/  ,ADC_CHANNEL_10)
+#endif
 
 DEV_IO_ADC_CREATE(adcRSEN, adcCore,  0 )
 DEV_IO_ADC_CREATE(adcRDSEN, adcCore, 1 )
@@ -357,6 +516,9 @@ DEV_IO_ADC_CREATE(adcKML, adcCore,   10)
 DEV_IO_ADC_CREATE(adcXML, adcCore,   11)
 DEV_IO_ADC_CREATE(adcWD_IN, adcCore, 12)
 DEV_IO_ADC_CREATE(adcIMTEL, adcCore, 13)
+#ifdef ALPS_H50
+DEV_IO_ADC_CREATE(adcASIN, adcCore,  14)
+#endif
 
 
 const tsDevIo *adcs[] = {
@@ -374,6 +536,9 @@ const tsDevIo *adcs[] = {
         &adcXML,
         &adcWD_IN,
         &adcIMTEL,
+#ifdef ALPS_H50
+        &adcASIN,
+#endif
 };
 
 /*************************************    NTC Inputs    *****************************************/
@@ -393,6 +558,9 @@ DEV_IO_FILTER_CREATE(filteredAdcKML, adcKML, 20, 4)
 DEV_IO_FILTER_CREATE(filteredAdcXML, adcXML, 20, 4)
 DEV_IO_FILTER_CREATE(filteredAdcWD_IN, adcWD_IN, 20, 4)
 DEV_IO_FILTER_CREATE(filteredAdcIMTEL, adcIMTEL, 20, 4)
+#ifdef ALPS_H50
+DEV_IO_FILTER_CREATE(filteredAdcASIN, adcASIN, 20, 4)
+#endif
 
 
 #include "dev/ntc.h"
@@ -410,6 +578,9 @@ DEV_IO_NTC_CREATE(ntcKML, filteredAdcKML)
 DEV_IO_NTC_CREATE(ntcXML, filteredAdcXML)
 DEV_IO_NTC_CREATE(ntcWD_IN, filteredAdcWD_IN)
 DEV_IO_NTC_CREATE(ntcIMTEL, filteredAdcIMTEL)
+#ifdef ALPS_H50
+DEV_IO_NTC_CREATE(ntcASIN, filteredAdcASIN)
+#endif
 
 
 DEV_IO_NTC_ERROR_DETECTOR_CREATE(ntcErrorRSEN, ntcRSEN)
@@ -426,6 +597,9 @@ DEV_IO_NTC_ERROR_DETECTOR_CREATE(ntcErrorKML, ntcKML)
 DEV_IO_NTC_ERROR_DETECTOR_CREATE(ntcErrorXML, ntcXML)
 DEV_IO_NTC_ERROR_DETECTOR_CREATE(ntcErrorWD_IN, ntcWD_IN)
 DEV_IO_NTC_ERROR_DETECTOR_CREATE(ntcErrorIMTEL, ntcIMTEL)
+#ifdef ALPS_H50
+DEV_IO_NTC_ERROR_DETECTOR_CREATE(ntcErrorASIN, ntcASIN)
+#endif
 
 const tsDevIo *ntcs[] = {
 		&ntcRSEN,
@@ -442,6 +616,9 @@ const tsDevIo *ntcs[] = {
 		&ntcXML,
 		&ntcWD_IN,
 		&ntcIMTEL,
+#ifdef ALPS_H50
+		&ntcASIN,
+#endif
 };
 
 const tsDevIo *ntcErrorDetectors[] = {
@@ -459,6 +636,9 @@ const tsDevIo *ntcErrorDetectors[] = {
                 &ntcErrorXML,
                 &ntcErrorWD_IN,
                 &ntcErrorIMTEL,
+#ifdef ALPS_H50
+                &ntcErrorASIN,
+#endif
 };
 
 //#include "dev/knob.h"
@@ -542,13 +722,26 @@ DEV_CPX_PWM_CORE_CREATE(vccDrivePwmCore, COMP_OUT_T, A , 600, 50)         // COM
 DEV_IO_PWM_FREQ_CREATE(comp_out_freq, vccDrivePwmCore)
 DEV_IO_PWM_DUTY_CREATE(comp_out_duty, vccDrivePwmCore)  
 
+#ifdef ALPS_H50
+// ASOUT Channel B
+DEV_CPX_PWM_CORE_CREATE(asoutPwmCore, ASOUT_T, B , 30000, 0)     // ASOUT Channel B
+DEV_IO_PWM_FREQ_CREATE(asout_out_freq, asoutPwmCore)
+DEV_IO_PWM_DUTY_CREATE(asout_out_duty, asoutPwmCore)
+#endif 
+
 
 const tsDevIo *softPwmFreqOutputs[] = {
 	&comp_out_freq,
+#ifdef ALPS_H50
+	&asout_out_freq,
+#endif
 };
 
 const tsDevIo *softPwmDutyOutputs[] = {
 	&comp_out_duty,
+#ifdef ALPS_H50
+	&asout_out_duty,
+#endif
 };
 
 
@@ -746,7 +939,10 @@ void boardInitBoard(void)
         devIoInit(&bdcIcePumpMotor, NULL);
         devIoInit(&bdcDispPumpMotor, NULL);
         devMemInit(&eepromDev); // MJI
-
+#ifdef ALPS_H50
+        devIoInit(&bdcAutoDoorMotor, NULL);
+        devCpxInit(&asoutPwmCore, NULL);
+#endif
         /*cdis todo: bunlari sonra aktif edersin
 	devIoInit(&i2cEn, NULL);
 	devIoPut(&i2cEn, 1);
@@ -820,6 +1016,19 @@ const tsDevIo *boardInitDevice(teBoardDeviceType deviceType, uint8_t deviceIdx, 
 		}
 		break;
 
+#ifdef ALPS_H50
+	case eDeviceTypeSoftDuty:
+
+          
+		if (deviceIdx < ARRAY_SIZE(softPwmDutyOutputs))
+		{
+			dev = softPwmDutyOutputs[deviceIdx];
+			devIoInit(softPwmDutyOutputs[deviceIdx], NULL);
+		}
+
+		break;
+#endif
+                
 	case eDeviceTypeSoftFreq:
         case eDeviceTypeComm:
           
@@ -1055,7 +1264,19 @@ void boardBuzzerFTC(void)
     if(!buzzerTimer && FTC.Buzzer.value == 1)  
       devIoPut(dev,1);
 }
-
+/*ALPS78 H50
+	&softPwmDutyOutputs;        
+*/
+#ifdef ALPS_H50
+void boardDutyFTC(void)
+{
+    const tsDevIo *dev = NULL;
+    
+    if (FTC.DUTY.index < ARRAY_SIZE(softPwmDutyOutputs))
+      dev = softPwmDutyOutputs[FTC.DUTY.index];
+    devIoPut(dev, FTC.DUTY.value);
+}
+#endif
 /*BONA
 	&softPwmFreqOutputs;        
 */
@@ -1326,6 +1547,15 @@ void boardInitFTC(void)
     dev = &buzzer;
     devIoInit(dev, NULL);
 
+#ifdef ALPS_H50
+    // DUTY COMPONENTS PWM
+    for(uint8_t i = 0; i < ARRAY_SIZE(softPwmDutyOutputs); i++)
+    {
+      dev = softPwmDutyOutputs[i];
+      devIoInit(dev, NULL);
+    }
+#endif
+    
     // VCC COMPONENTS PWM
     for(uint8_t i = 0; i < ARRAY_SIZE(softPwmFreqOutputs); i++)
     {
@@ -1364,6 +1594,9 @@ void boardInitFTC(void)
     devCpxInit(&display, NULL);
     devMemInit(&eepromDev);
     devComInit(&wifiUart);
+#ifdef ALPS_H50
+    devCpxInit(&asoutPwmCore, NULL);
+#endif
 
 }
 
@@ -1377,6 +1610,9 @@ void boardFTC20MsTask(void)
   boardDcInFTC();
   boardAdcFTC();
   boardBuzzerFTC();
+#ifdef ALPS_H50
+  boardDutyFTC();
+#endif
   boardVccFTC();
   boardVSDCMotorFTC();
   boardStepMotorFTC();

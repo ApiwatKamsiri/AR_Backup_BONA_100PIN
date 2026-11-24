@@ -4,9 +4,9 @@
 #include "system.h"
 
 #define _StockNoSize 10
-#define _StockNo 6133102607     // Name of Project (For BONA H30 VN DPJ)
+#define _StockNo 6253101208     // Name of Project (For ALPS78-H50)Vietnam_Indonesia
 #define _StockVersion 0  	// Version      
-#define _StockRevision 13 	// Revision Massprod VN model -> Update new core software and improve all heater for dew.
+#define _StockRevision 1 	// Revision
 #define _CoreVersion UXPURE_CORE_VER    //APW : When need to change core please change in system.h                 
 #define _CoreRevision UXPURE_CORE_REV   //APW : When need to change core please change in system.h  
 #define _ProductStockCode 7000000000
@@ -35,13 +35,13 @@ const stRefrigerator_Flash refrigerator_F =
 					.DoorsClosed = 0, // For energy consumption test it is canceled. Don't use
 					.Silent = 1, // Silent mode, Press on the Display.
 					.PumpOut = { //Recovery function *frist start and valve change position 
-						.isActive = 1, // 0 is Disable, 1 is Enable
+						.isActive = 0, // 0 is Disable, 1 is Enable
 						.type = _PumpOut_Close, // _PumpOut_AllOpen da eklendi. suresi 30sn core da//Valve position when pumpout
 					},
 				},
 			},
 			.voltageInput = _PowerVolInput,  //power voltage input
-			.Model_Select_EEPROM_Record = 3, //FUJIGEN2 = 0, HOSHIGEN2_H10 = 1, HOSHIGEN2_H30 = 2, BONA = 3, ALPS78 = 4
+			.Model_Select_EEPROM_Record = 4, //FUJIGEN2 = 0, HOSHIGEN2_H10 = 1, HOSHIGEN2_H30 = 2, BONA = 3, ALPS78 = 4
 		},
 
 		.Parameters = {
@@ -163,10 +163,10 @@ const stRefrigerator_Flash refrigerator_F =
 				},
 			},
 			.parameters = {                                                         // 100
-				.waterPumpTime = 90, // ((waterPumpTime / 10) second ) = (waterPumpTime * 5) * 20ms = 10 second (Total water intake duration)
-				.checkIceTempAtLongWait = -150,         //check temperature after ".makeIceLongWaitTime"
-				.checkIceTempAtShortWait = -150,        //check temperature after ".makeIceShortWaitTime"
-				.makeIceLongWaitTime = 150,             //makeIceLongWaitTime>checkIceTempAtLongWait>makeIceShortWaitTime>checkIceTempAtShortWait        
+				.waterPumpTime = 80, // ((waterPumpTime / 10) second ) = (waterPumpTime * 5) * 20ms = 10 second (Total water intake duration)
+				.checkIceTempAtLongWait = -120,         //check temperature after ".makeIceLongWaitTime"
+				.checkIceTempAtShortWait = -120,        //check temperature after ".makeIceShortWaitTime"
+				.makeIceLongWaitTime = 90,             //makeIceLongWaitTime>checkIceTempAtLongWait>makeIceShortWaitTime>checkIceTempAtShortWait        
 				.makeIceShortWaitTime = 1,              //makeIceLongWaitTime>checkIceTempAtLongWait>makeIceShortWaitTime>checkIceTempAtShortWait
 				.checkWaterEnabled = false,             //Not use for BONA check tank empty by sensor
 				.checkWaterTime = 300,                  //Not use for BONA check tank empty by sensor
@@ -176,22 +176,22 @@ const stRefrigerator_Flash refrigerator_F =
 				.quickCutOutTemp = -170,                //Not use for BONA auto quickIce        // when it reaches this value, quick is finished
 				.quickIceOnDisplay = true,              //BONA set true Quick Ice on display
 				.HBY_SetDecrease = 20,                  //Not use for BONA auto quickIce        // when you have quick ice, your ci co will decrease 2 Celcicus
-				.quickIce60WaterPumpTime  = 62,                //<<QuickIce60 water supply time (Secound)
+				.quickIce60WaterPumpTime  = 71,                //<<QuickIce60 water supply time (Secound)
 				.quickIce60checkIceTempAtLongWait = -120,      //<<QuickIce60 check temperature after ".makeIceLongWaitTime" (C/10)
 				.quickIce60checkIceTempAtShortWait = -120,     //<<QuickIce60 check temperature after ".makeIceShortWaitTime" (C/10)
-				.quickIce60makeIceLongWaitTime = 58,           //<<QuickIce60 Long wait time (Minute)
+				.quickIce60makeIceLongWaitTime = 60,           //<<QuickIce60 Long wait time (Minute)
 				.quickIce60makeIceShortWaitTime = 1,           //<<QuickIce60 Short wait time (Minute)
-				.quickIce60MaximumTime  = 240,                 //<<QuickIce60 Maximum operation time (Minute)
+				.quickIce60MaximumTime  = 250,                 //<<QuickIce60 Maximum operation time (Minute)
 				.quickIce60MaximumTimes  = 5,                  //<<QuickIce60 Maximum count (Times)
 			},
 		},
 
 		.IceSource = {//Ice dispensor  not use
-			.type = _IceSourceType_IceCubeAndCrash, //_IceSourceType_NONE,
+			.type = _IceSourceType_NONE,  //_IceSourceType_IceCubeAndCrash,  //
 			.components = {
 				.selector = {
-					.type = _SelectorType_ACMotor, //_SelectorType_NONE,
-					.index = 7, //0xFF,
+					.type = _SelectorType_NONE,  //_SelectorType_ACMotor,  //
+					.index = 0xFF,  //7,  //
 					.test.selA = {
 						.startTime = 0,
 						.endTime = 0,
@@ -202,8 +202,8 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.shutter = {
-					.type = _ShutterType_ACMotor, //_ShutterType_NONE,
-					.index = 8, //0xFF,
+					.type = _ShutterType_NONE,  //_ShutterType_ACMotor,  //
+					.index = 0xFF,  //8,  //
 					.test.open = {
 						.startTime = 0, // No need, not used in IceSource
 						.endTime = 0,	// No need, not used in IceSource
@@ -214,8 +214,8 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.pusher = {
-					.type = _PusherType_ACOut, //_PusherType_NONE,
-					.index = 9, //0xFF,
+					.type = _PusherType_NONE,  //_PusherType_ACOut,  //
+					.index = 0xFF,  //9,  //
 					.test = {
 						.startTime = 0,
 						.endTime = 0,
@@ -236,13 +236,13 @@ const stRefrigerator_Flash refrigerator_F =
 				//.order = 4,
 				},
 				.waterDisTankEmptySensor = {//Water dispensor
-				.type = _TempSensorType_NTCwithADC,  //_TempSensorType_NONE,
-				.index = 12, //For BONA H30-50	//0xFF,
+				.type = _TempSensorType_NONE,  //_TempSensorType_NTCwithADC,  //
+				.index = 0xFF,  //12,  //For BONA H30-50
 				//.order = 4,
 				},
 				.mainPump = {
-					.type = _PumpType_NONE,	//_PumpType_NONE,	//
-					.index = 0xFF,	//0xFF,	//
+					.type = _PumpType_NONE,  //_PumpType_NONE,  //
+					.index = 0xFF,  //0xFF,  //
 					.test.pump = {
 						.startTime = 0,
 						.endTime = 0,
@@ -253,8 +253,8 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.dispenserPump = {
-					.type = _PumpType_BDCMotor,	//_PumpType_NONE,
-					.index = 2,	//0xFF,
+					.type = _PumpType_NONE,  //_PumpType_BDCMotor,  //
+					.index = 0xFF,  //2,  //
 					.test.pump = {
 						.startTime = 0,
 						.endTime = 0,
@@ -265,8 +265,8 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.iceMachinePump = {
-					.type = _PumpType_BDCMotor, //_PumpType_NONE, //
-					.index = 1, //0xFF, //
+					.type = _PumpType_BDCMotor,  //_PumpType_NONE,  //
+					.index = 1,  //0xFF,  //
 					.test.pump = {
 						.startTime = 0,
 						.endTime = 0,
@@ -302,7 +302,7 @@ const stRefrigerator_Flash refrigerator_F =
 				},
 				.waterVentilHeater = {//IM heater
 					.type = _HeaterType_AC,
-					.index = 2, //acSPHEAT, //Hoshi_H30 3, //ALPS78
+					.index = 2,  //acSPHEAT, //Hoshi_H30 3, //ALPS78
 					.test = {
 						.startTime = 0,
 						.endTime = 0,
@@ -311,55 +311,55 @@ const stRefrigerator_Flash refrigerator_F =
 					.resistanceForPower = 9338,
 				},
 				.waterCaseSwitch = { 
-					.type = _SwitchType_NONE,	//_SwitchType_DC, // FF door switch index should be write
-					.index =0xFF,	// 1,
+					.type = _SwitchType_NONE,  //_SwitchType_DC,  // FF door switch index should be write
+					.index =0xFF,  //1,  //
 				},
 			},
 			.parameters = {
 				.waterVentilHeater = { //  Ambient {3&4=0%,other=50%}
                                   //{On/off : 0/10 is 0%, 1/9 is 10%, 2/8 is 20%,...,10/0 is 100%}
-                                  .OnTimeA =  {6 ,6 ,6 ,6 ,9},          // ICEON  | BOXFULL'de OnTimeA
-                                  .OffTimeA = {4 ,4 ,4 ,4 ,11},        //        | BOXFULL'de OffTimeA/2 cycle'ini yapar
+                                  .OnTimeA =  {8 ,7 ,6 ,5 ,4},          // ICEON  | BOXFULL'de OnTimeA
+                                  .OffTimeA = {2 ,3 ,4 ,5 ,6},        //        | BOXFULL'de OffTimeA/2 cycle'ini yapar
                                   .OnTimeB = 0,    // ICEOFF |
                                   .OffTimeB = 50,
-                                  .IceOnFirstOnTime = 3,                        //Heater ON 100% when IceOn/Empty clear
-                                  .ProhibitPumpWhenIceOnFirstOnTime = 0,        //Update delay supply when IceOff to IceOn
-                                  .ProhibitPumpAfterDoorClearEmptyTime = 0,     //Update delay supply when Empty/PowerOn
+                                  .IceOnFirstOnTime = 10,                      	//Heater ON 100% when IceOn/Empty clear
+                                  .ProhibitPumpWhenIceOnFirstOnTime = 10,       //Update delay supply when IceOff to IceOn
+                                  .ProhibitPumpAfterDoorClearEmptyTime = 10,    //Update delay supply when Empty/PowerOn
 				},
                                 .waterIceTankEmptySensor = {// Add because we separate Empty judgment each model.(Ice making)
-                                  .JudgmentZoneA = -317,
-                                  .JudgmentZoneB = -147,   // A->B : Normal zone (Have water in Tank)
-                                  .JudgmentZoneC = -147,
-                                  .JudgmentZoneD = 247,    // C->D : Empty zone (No have water in Tank)
+                                  .JudgmentZoneA = -189,
+                                  .JudgmentZoneB = -98,   // A->B : Normal zone (Have water in Tank)
+                                  .JudgmentZoneC = 8,
+                                  .JudgmentZoneD = 253,    // C->D : Empty zone (No have water in Tank)
                                 },
                                 .waterDisTankEmptySensor = {// Add because we separate Empty judgment each model.(Water dispensor)
-                                  .JudgmentZoneA = -317,
-                                  .JudgmentZoneB = -147,   // A->B : Normal zone (Have water in Tank)
-                                  .JudgmentZoneC = -147,
-                                  .JudgmentZoneD = 247,    // C->D : Empty zone (No have water in Tank)
+                                  .JudgmentZoneA = 0,
+                                  .JudgmentZoneB = 0,		// A->B : Normal zone (Have water in Tank)
+                                  .JudgmentZoneC = 0,
+                                  .JudgmentZoneD = 0,		// C->D : Empty zone (No have water in Tank)
                                 },
 			},
 		},
 
 		.Dispenser = {// For Dispensor 
-			.waterType = _DispenserWaterType_WaterPump, //_DispenserWaterType_NONE,
-			.iceType = _DispenserIceType_IceCubeAndCrash, //_DispenserIceType_NONE,
+			.waterType = _DispenserWaterType_NONE,  //_DispenserWaterType_WaterPump,  //
+			.iceType = _DispenserIceType_NONE,  //_DispenserIceType_IceCubeAndCrash,  //
 			.components = {
 				.tactSwitch = {
-					.type = _SwitchType_DC, //_SwitchType_NONE, // This is for test
-					.index = 11, //0xFF,             			//index should be different in H30
+					.type = _SwitchType_NONE, //_SwitchType_DC, // This is for test
+					.index = 0xFF,  //11, //           			//index should be different in H30
 				},
 				.light = {
-					.type = _LightType_PWM, //_LightType_NONE,
-					.index = 5, //0xFF,
+					.type = _LightType_NONE,  //_LightType_PWM, //
+					.index = 0xFF,  //5, //
 					.test = {
 						.startTime = 0,
 						.endTime = 0,
 					},
 				},
 				.doorSwitch = {
-					.type = _SwitchType_DC,	//_SwitchType_NONE,
-					.index = 1,	//0xFF,
+					.type = _SwitchType_NONE,  //_SwitchType_DC,	//
+					.index = 0xFF,  //1,	//
 				},
 			},
 			.parameters = {
@@ -412,11 +412,11 @@ const stRefrigerator_Flash refrigerator_F =
 		},
 */
 		.Cooler = {
-			.type = _CoolerType_PARALLEL, //Full parallel  Cooling type. //
+			.type = _CoolerType_DEFAULT,  //DEFAULT  Cooling type. //
 			.components = {
 				.condenserFan = {
-					.type = _FanType_DC,	//_FanType_NONE,//_FanType_CDC,// CDC = ON/OFF type,PWM = VDC //No Fan = _FanType_None//_FanType_CDC,
-					.index = 2,	//0xFF,//
+					.type = _FanType_NONE,  //_FanType_DC,  //_FanType_CDC,// CDC = ON/OFF type,PWM = VDC //No Fan = _FanType_None//_FanType_CDC,
+					.index = 0xFF,  //0x02,
 					.configs = {
 						.powerPinUsed = false, //POWER
 						.pwmUsed = false,		//PWM PIN
@@ -445,13 +445,13 @@ const stRefrigerator_Flash refrigerator_F =
 					.hideError = 0, //1 = Display Error off after 1 minute // 0 = continue Error Display
 				},
 				.humiditySensor = {
-					.type = _HumSensorType_ADC, // type of sensor
-					.index = 6,	//0xFF,
+					.type = _HumSensorType_NONE,  //_HumSensorType_ADC,  // type of sensor
+					.index = 0xFF,  //6,  //
                     //.hideError = 0, //1 = Display Error off after 1 minute // 0 = continue Error Display
 				},
 				.solenoidValve[0] = {
-					.type = _SolenoidValveType_StepMotor, //Prodtest after productiontest
-					.index = 0,
+					.type = _SolenoidValveType_NONE, //_SolenoidValveType_StepMotor, //Prodtest after productiontest
+					.index = 0xFF, //0,
 					.positionsSize = 4,						// max 5
 					.positions = {34, 195, 100, 154, 0xFF}, // allClose, COpen, BOpen, AllOpen
 					.test = {
@@ -507,11 +507,11 @@ const stRefrigerator_Flash refrigerator_F =
 					.minStayTimeAtPresGasLevel[_Ambient_3] = {10, 10, 10, 10, 10, 10, 10, 10, 10},
 					.minStayTimeAtPresGasLevel[_Ambient_4] = {10, 10, 10, 10, 10, 10, 10, 10, 10},
 					//maxStayTimeAtPresGasLevel maximum time each speedLevel.
-					.maxStayTimeAtPresGasLevel[_Ambient_0] = {30, 30, 30, 30, 70, 80, 90, 90, 90},
-					.maxStayTimeAtPresGasLevel[_Ambient_1] = {72, 72, 72, 72, 70, 80, 90, 90, 90},
-					.maxStayTimeAtPresGasLevel[_Ambient_2] = {72, 72, 72, 72, 70, 80, 90, 90, 90},
-					.maxStayTimeAtPresGasLevel[_Ambient_3] = {145, 72, 72, 72, 70, 80, 90, 90, 90},
-					.maxStayTimeAtPresGasLevel[_Ambient_4] = {30, 30, 30, 30, 70, 80, 90, 90, 90},
+					.maxStayTimeAtPresGasLevel[_Ambient_0] = {30, 30, 30, 30, 60, 80, 90, 90, 90},
+					.maxStayTimeAtPresGasLevel[_Ambient_1] = {90, 60, 30, 30, 60, 80, 90, 90, 90},
+					.maxStayTimeAtPresGasLevel[_Ambient_2] = {90, 60, 30, 30, 60, 80, 90, 90, 90},
+					.maxStayTimeAtPresGasLevel[_Ambient_3] = {90, 90, 60, 30, 60, 80, 90, 90, 90}, //Energy test
+					.maxStayTimeAtPresGasLevel[_Ambient_4] = {30, 30, 30, 30, 60, 80, 90, 90, 90}, 
 					.compressor = {
 						.minOnTime = 5, //minimum comp on time
 						.minOffTime = 10,//minimum comp off time
@@ -521,60 +521,60 @@ const stRefrigerator_Flash refrigerator_F =
 						/// NER
 						.FF = {                   /* L1, L2, L3, L4, LD, LH */ //LD is rmp after defrost , until cut out.
 						                                                       //LH is frist plug in [power on] 
-							.speedLevel[_Ambient_0] = {  40,  60,   80,  100,  60, 143},
-							.speedLevel[_Ambient_1] = {  50,  70,   90,  110,  65, 143}, //40*30=1200rpm
-							.speedLevel[_Ambient_2] = {  60,  90,  100,  143,  70, 143}, 
-							.speedLevel[_Ambient_3] = {  65,  90,  120,  143,  80, 143},
-							.speedLevel[_Ambient_4] = { 100,  130, 150,  143, 110, 143},
+							.speedLevel[_Ambient_0] = { 40,  55,  90, 100,  60, 100},
+							.speedLevel[_Ambient_1] = { 45,  65, 100, 110,  60, 110}, //40*30=1200rpm
+							.speedLevel[_Ambient_2] = { 55,  70, 100, 125,  80, 125}, 
+							.speedLevel[_Ambient_3] = { 65,  80, 110, 130,  80, 130}, 
+							.speedLevel[_Ambient_4] = { 70, 105, 130, 145,  80, 145},
 							.maxDialSpeedLevelUpLH = false,
-						},//DPJ : Cannot use 2800(93), 3500(117), 4100(137), 4200(140)
+						},
 						.FRZ = {                  /* L1, L2, L3, L4, LD, LH */
-							.speedLevel[_Ambient_0] = {  60, 70,   90, 120,  80, 143},
-							.speedLevel[_Ambient_1] = {  80, 90,  110, 130,  90, 143}, 
-							.speedLevel[_Ambient_2] = {  90, 110, 130, 143, 110, 143}, 
-							.speedLevel[_Ambient_3] = { 105, 120, 130, 143, 130, 143}, 
-							.speedLevel[_Ambient_4] = { 110, 130, 135, 143, 130, 143},
-							.maxDialSpeedLevelUpLH = true,
+							.speedLevel[_Ambient_0] = { 0, 0, 0, 0, 0, 0},
+							.speedLevel[_Ambient_1] = { 0, 0, 0, 0, 0, 0}, 
+							.speedLevel[_Ambient_2] = { 0, 0, 0, 0, 0, 0}, 
+							.speedLevel[_Ambient_3] = { 0, 0, 0, 0, 0, 0}, 
+							.speedLevel[_Ambient_4] = { 0, 0, 0, 0, 0, 0},
+							.maxDialSpeedLevelUpLH = false,
 						},
 						.speedSilent = 36, // rpm of silent , Must press on control panel
 						.speedStartUp = 60, // rpm  Oil Cooling 
 						.speedPumpOut = 60, // rpm of recovery 
 						.timeStartUp = 1, // Time  Oil Cooling
-						.timeForMaxLevel_DO = {120,120,150,480,120}, // running > Time,200 change LH level.
-						.timeForMaxLevel_DC = {120,120,150,480,120}, // running > Time,200 change LH level.
-						.workTimeAtMaxLevel = 255, // not using should be set to 255 // 0 = always operate high level.
+						.timeForMaxLevel_DO = {120,120,240,240,120}, // running > Time,200 change LH level.
+						.timeForMaxLevel_DC = {120,120,240,240,120}, // running > Time,200 change LH level.
+						.workTimeAtMaxLevel = 240, // not using should be set to 255 // 0 = always operate high level.
 						.speedPullDownStage_1 = 100,
 						.speedPullDownStage_2 = 110,
 						.minOnTimePullDownStage_1 = 60,
 						.minOnTimePullDownStage_2 = 240,
 						/*** APW : Add CT heater software ***/
-						.speedFirstCommercial = 70, //(2100)    // (RPM in CT mode : Separate country) after minOntimerFirstCommercial goto speedSecondCommercialValveTest.
-						.speedSecondCommercialValveTest = 144,  // (RPM in CT mode : Valve check)
-						.minOntimerFirstCommercial = 5,         // (Set 2 or more)First Commercial mode time.
+						.speedFirstCommercial = 55, //(1650)    // (RPM in CT mode : Separate country) after minOntimerFirstCommercial goto speedSecondCommercialValveTest.
+						.speedSecondCommercialValveTest = 0,    // (RPM in CT mode : Valve check)
+						.minOntimerFirstCommercial = 12,        // (Set 2 or more)First Commercial mode time.
 						/*** APW : Add CT heater software ***/
 						},
 
 				.condenserFan = {
-					.speedLevel = {100, 100, 100, 100, 100, 100, 100, 100, 100}, // None ambien sensor
-					.speedLevelFF = { 100, 100, 100, 100, 100, 100, 100, 100 }, // None ambien sensor
-					.speedLevelFRZ = {  100, 100, 100, 100, 100, 100, 100, 100 }, // None ambien sensor
+					.speedLevel = {0, 0, 0, 0, 0, 0, 0, 0, 0}, // None ambien sensor
+					.speedLevelFF = { 0, 0, 0, 0, 0, 0, 0, 0 }, // None ambien sensor
+					.speedLevelFRZ = {  0, 0, 0, 0, 0, 0, 0, 0 }, // None ambien sensor
 					/// NER
-					.FF = {                                          /* L1,   L2,   L3,   L4,   LD,   LH */ //ON-OFF FAN = 100
+					.FF = {                 /* L1,   L2,   L3,   L4,   LD,   LH */ //ON-OFF FAN = 100
 						.speedLevel[_Ambient_0] = { 0,  0,  0,  0,  0,  0}, //Can set 0 , when stop fan
 						.speedLevel[_Ambient_1] = { 0,  0,  0,  0,  0,  0},
-						.speedLevel[_Ambient_2] = { 100,  100,  100,  100,  100,  100},
-						.speedLevel[_Ambient_3] = { 100,  100,  100,  100,  100,  100},
-						.speedLevel[_Ambient_4] = { 100,  100,  100,  100,  100,  100},
+						.speedLevel[_Ambient_2] = { 0,  0,  0,  0,  0,  0},
+						.speedLevel[_Ambient_3] = { 0,  0,  0,  0,  0,  0},
+						.speedLevel[_Ambient_4] = { 0,  0,  0,  0,  0,  0},
 					},
 					.FRZ = {                                          /* L1,   L2,   L3,   L4,   LD,   LH */ //ON-OFF FAN = 100
 						.speedLevel[_Ambient_0] = { 0,  0,  0,  0,  0,  0},
 						.speedLevel[_Ambient_1] = { 0,  0,  0,  0,  0,  0},
-						.speedLevel[_Ambient_2] = { 100,  100,  100,  100,  100,  100},
-						.speedLevel[_Ambient_3] = { 100,  100,  100,  100,  100,  100},
-						.speedLevel[_Ambient_4] = { 100,  100,  100,  100,  100,  100},
+						.speedLevel[_Ambient_2] = { 0,  0,  0,  0,  0,  0},
+						.speedLevel[_Ambient_3] = { 0,  0,  0,  0,  0,  0},
+						.speedLevel[_Ambient_4] = { 0,  0,  0,  0,  0,  0},
 					},
-						.speedSilent = 100, //ON-OFF FAN = 100
-						.speedPumpOut = 100, //ON-OFF FAN = 100
+						.speedSilent = 0, //ON-OFF FAN = 100
+						.speedPumpOut = 0, //ON-OFF FAN = 100
 						.speedCheckCorrection = 0,
 						.speedCheckTime = 15,
 						.speedCheckTemp = -100, //_DegC_n10_0,
@@ -587,202 +587,133 @@ const stRefrigerator_Flash refrigerator_F =
 					.hysteresis = { 10, 10, 10, 10 },  // value / 10 = temperature
 					.errorType = _Ambient_3,
 					.humidity = { 
-					.intervals = {10, 20, 30, 40, 50, 55, 64, 73, 82}, // 0,10,20,30,40,50,60,70 needed.
+					.intervals = {10, 20, 30, 40, 50, 60, 70, 80, 90}, // 0,10,20,30,40,50,60,70 needed.
 					.hysteresis = {0,  0,  0, 0, 0, 0, 0, 0, 0},
 					.errorType = _Humidity_4, // Change to 7 or 8 ?
 					},
 				},
 
-				.sysStates = {      
-						{//0 Default position
-							.queue = false,
-							.valvesDefPosition = 3,
-						},
-						{//1
-							.logic = _L_OR,//OR is gasSpecs[0] is correct "or" gasSpec[1] is correct
-							.queue = false, //false:serch next status from first / true:serch next status with queue true from this status
-							.gasSpecs[ 0 ] = { .type = _GT_Failed, .priority = 1, },
-							.gasSpecs[ 1 ] = { .type = _GT_Failed, .priority = 2, },
-							.valvesDefPosition = _ALL_CLOSE, //kompresor durdugunda ne yapalim sorulacak.
-						},
-						{//2
-							.logic = _L_AND, //GT_PerformanceTest EVP sensor > 10*C and Air sensor (F/R) < 39*C //GT_PerformanceTest is Devise Checking(CT)
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_PerformanceTest, .priority = 2, },// Hight .priority(2) is frist
-							.gasSpecs[ 1 ] = { .type = _GT_PerformanceTest, .priority = 1, },
-							.valvesDefPosition = _ALL_OPEN,
-							.valvesDefPositionTime = 10,
-						},
-						{//3
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_PerformanceTest2, .priority = 2, }, // Hight .priority(2) is frist
-							.gasSpecs[ 1 ] = { .type = _GT_PerformanceTest2, .priority = 1, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesAltPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 40,
-							.valvesAltPositionTime = 70,
-						},
-						{//4
-							.logic = _L_OR,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_PerformanceTest2, .priority = 2, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 25,
-						},
-						{//5
-							.logic = _L_OR,
-							.queue = false,
-							.gasSpecs[ 1 ] = { .type = _GT_PerformanceTest2, .priority = 2, },
-							.valvesDefPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 60,
-						},
-						{//6
-							.logic = _L_AND,  //G_GT_HotStart EVP sensor > 10*C and Air sensor (F/R) > 39*C
-							.queue = false, 
-							.gasSpecs[ 0 ] = { .type = _GT_HotStart, .priority = 2, }, //Pulldonw condition
-							.gasSpecs[ 1 ] = { .type = _GT_HotStart, .priority = 1, },
-							.valvesDefPosition = _ALL_OPEN,
-							.valvesDefPositionTime = 10,
-						},
-						{//7
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_HotStart2, .priority = 2, },
-							.gasSpecs[ 1 ] = { .type = _GT_HotStart2, .priority = 1, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesAltPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 400, // if reach Cutout in 100 ,Cange to .gasSpecs[ 1 ] Time is [400-100] + 100
-							.valvesAltPositionTime = 100, // Time from .valvesDefPositionTime [400-100]+100
-						},
-						{//8
-							.logic = _L_OR,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_HotStart2, .priority = 2, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 400,
-						},
-						{//9
-							.logic = _L_OR,
-							.queue = false,
-							.gasSpecs[ 1 ] = { .type = _GT_HotStart2, .priority = 2, },
-							.valvesDefPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 100,
-						},  
-						{//10		
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_No, .priority = 2, },
-							.gasSpecs[ 1 ] = { .type = _GT_No, .priority = 1, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						{//11
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_Hot, .priority = 2, }, //GT_Hot is Defrosting
-							.gasSpecs[ 1 ] = { .type = _GT_No,  .priority = 1, }, //GT_No is No need cooling / No Defrost
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						{//12
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_No,  .priority = 1, },
-							.gasSpecs[ 1 ] = { .type = _GT_Hot, .priority = 2, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						{//13
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_Hot, .priority = 2, },
-							.gasSpecs[ 1 ] = { .type = _GT_Hot, .priority = 1, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						{//14
-							.logic = _L_AND,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_Cold_FF, .priority = 1, },//GT_Cold is Need Cooling
-							.gasSpecs[ 1 ] = { .type = _GT_Hot,  .priority = 2, },//GT_Hot is Defrosting
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 50,
-						},
-						{//15
-							.logic = _L_AND,
-							.queue = true,
-							.gasSpecs[ 0 ] = { .type = _GT_Cold_FF, .priority = 1, },//GT_Cold is Need Cooling
-							.gasSpecs[ 1 ] = { .type = _GT_Cold_FRZ, .priority = 2, },//GT_Cold is Need Cooling
-							.valvesDefPosition = _FRZ_OPEN, //Change to _FRZ_OPEN //SZU ??? FRZ is high priority but start from FF_OPEN
-							.valvesAltPosition = _FF_OPEN,
-							.valvesDefPositionTime = 70,
-							.valvesAltPositionTime = 40,
-						},
-						{//16
-							.logic = _L_AND,
-							.queue = true,
-							.gasSpecs[ 0 ] = { .type = _GT_Hot,  .priority = 1, },
-							.gasSpecs[ 1 ] = { .type = _GT_Cold_FRZ, .priority = 2, },
-							.valvesDefPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						{//17
-							.logic = _L_AND,
-							.queue = true,
-							.gasSpecs[ 0 ] = { .type = _GT_Cold_FF, .priority = 2, },
-							.gasSpecs[ 1 ] = { .type = _GT_No, .priority = 1, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						{//18
-							.logic = _L_AND,
-							.queue = true,
-							.gasSpecs[ 0 ] = { .type = _GT_Cold_FF, .priority = 2, },
-							.gasSpecs[ 1 ] = { .type = _GT_Cold_FRZ, .priority = 1, },
-							.valvesDefPosition = _FF_OPEN, //SZU ??? FF is high priority but start from FRZ_OPEN
-							.valvesAltPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 40,
-							.valvesAltPositionTime = 70,
-						},
-						{//19
-							.logic = _L_OR,
-							.queue = false,
-							.gasSpecs[ 0 ] = { .type = _GT_Cold_FF, .priority = 2, },
-							.valvesDefPosition = _FF_OPEN,
-							.valvesDefPositionTime = 75,
-						}, 
-						{//20
-							.logic = _L_OR,
-							.queue = false,
-							.gasSpecs[ 1 ] = { .type = _GT_Cold_FRZ, .priority = 1, },
-							.valvesDefPosition = _FRZ_OPEN,
-							.valvesDefPositionTime = 40,
-						},
-						},
-							.valveGasStates = { //Cabin 1 [FRZ]    //Cabin 0 [FF] // For  Full pararell Type 
+                                        .sysStates = {
+                                                {//0 Default position
+                                                  .queue = false,
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//1
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_Failed, .priority = 1, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Failed, .priority = 2, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//2
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_HotStart, .priority = 1, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_HotStart, .priority = 2, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//3
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_HotStart2, .priority = 1, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_HotStart2, .priority = 2, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//4
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_PerformanceTest, .priority = 1, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_PerformanceTest, .priority = 2, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//5
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_PerformanceTest2, .priority = 1, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_PerformanceTest2, .priority = 2, },
+                                                  .valvesDefPosition = 3,
+                                                },   
+                                                {//6
+                                                  .logic = _L_AND,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_Hot, .priority = 2, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_No, .priority = 1, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//7
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Hot, .priority = 1, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//8
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_Hot, .priority = 1, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//9
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Forced, .priority = 1, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//10
+                                                  .logic = _L_AND,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_No, .priority = 1, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_No, .priority = 2, },
+                                                  .valvesDefPosition = 3,
+                                                }, 
+                                                {//11
+                                                  .logic = _L_AND,
+                                                  .queue = false,
+                                                  .gasSpecs[ 0 ] = { .type = _GT_Cold, .priority = 2, },
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Hot, .priority = 1, },
+                                                  .valvesDefPosition = 3,
+                                                }, 
+                                                {//12
+                                                  .logic = _L_OR,
+                                                  .queue = true,
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Cold, .priority = 1, .lowLevel = 1, . hghLevel = 9, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//13
+                                                  .logic = _L_OR,
+                                                  .queue = true,
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Cold, .priority = 1, .lowLevel = 1, . hghLevel = 9, },
+                                                  .valvesDefPosition = 3,
+                                                },
+                                                {//14
+                                                  .logic = _L_OR,
+                                                  .queue = false,
+                                                  .gasSpecs[ 1 ] = { .type = _GT_Cold, .priority = 1, .lowLevel = 1, . hghLevel = 9, },
+                                                  .valvesDefPosition = 3, 
+                                                },      
+                                        },
+					.valveGasStates = { //Cabin 1 [FRZ]    //Cabin 0 [FF] // For  Full pararell Type 
 							{ .valve0Position = 0, .valve1Position = 0, .gas = 0x00, .enough = 0x00, },
-							{ .valve0Position = 1, .valve1Position = 0, .gas = 0x01, .enough = 0x01, },
-							{ .valve0Position = 2, .valve1Position = 0, .gas = 0x02, .enough = 0x02, },
+							{ .valve0Position = 1, .valve1Position = 0, .gas = 0x03, .enough = 0x03, },
+							{ .valve0Position = 2, .valve1Position = 0, .gas = 0x03, .enough = 0x03, },
 							{ .valve0Position = 3, .valve1Position = 0, .gas = 0x03, .enough = 0x03, },
 						},
 							/*** APW : Add CT heater software ***/
-							.minValveSwitchtimerCommercial = 10,  // Second Commercial mode switch valve    
-							.minOntimerSecondCommercial = 30,     // Second Commercial mode after finish goto normal mode.
+							.minValveSwitchtimerCommercial = 0,  // Second Commercial mode switch valve    
+							.minOntimerSecondCommercial = 0,     // Second Commercial mode after finish goto normal mode.
 							/*** APW : Add CT heater software ***/
 							},
 						},
 
 		.Cabin[0] = { //FF
-			.type = _CabinType_FF,
+			.type = _CabinType_FLAP,
 			.components = {
 				.knob = {// Dial Type *Same Fuji model
 					.type = _KnobType_NONE,
 					.index = 0xFF,
 				},
 				.vacuumBox = {
-					.type = _VacuumBoxType_NONE, //_VacuumBoxType_BDCMotor,
-					.index = 0xFF, //3,
+					.type = _VacuumBoxType_NONE,  //_VacuumBoxType_BDCMotor,  //
+					.index = 0xFF,  //3,  //
 					.test.pump = {
 						.startTime = 0,
 						.endTime = 0,
@@ -793,19 +724,19 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.vacuumBoxOverCurrentSensor = {
-					.type = _TempSensorType_NONE, //_TempSensorType_NTCwithADC,   
-					.index = 0xFF, //11,
+					.type = _TempSensorType_NONE,  //_TempSensorType_NTCwithADC,_TempSensorType_NTCwithADC, //
+					.index = 0xFF,  //11,  //For New MCU 10, //For Old MCU
                                   //.order = 4,
 				},
 				.vacuumBoxHeater = {
-					.type = _HeaterType_NONE, //_HeaterType_AC, // HeaterType_NONE : None Heater
-					.index = 0xFF, //5,
+					.type = _HeaterType_NONE,  //_HeaterType_AC,  // HeaterType_NONE : None Heater
+					.index = 0xFF,  //5,  //
 					.test = {
 						.startTime = 0, //First Plug_Intial Operate
-						.endTime = 0, //Off
+						.endTime = 0, 	//Off
 					},
-					.commercialDefrostTestPriority = 0,  //6, //For BONA H50
-					.resistanceForPower = 0,  //6914,  //For BONA H50
+					.commercialDefrostTestPriority = 0,          //APW : Add CT heater software
+					.resistanceForPower = 0,
 				},
 				.fan = {
 					.type = _FanType_VDC,           //Prodtest
@@ -814,8 +745,8 @@ const stRefrigerator_Flash refrigerator_F =
 						.powerPinUsed = false,
 						.pwmUsed = true,
 						.fgPinUsed = true, //For Mass	false, //For DEBUG   
-						.rpm = 1380, // Max-Speed Turbo Fan is 1380 
-						.ppr = 2, //paluse per rotation
+						.rpm = 2900, 	// Max-Speed Turbo Fan is 1380 
+						.ppr = 3, 		//paluse per rotation
 					},
 					.test = {
 						.startTime = 75, // For TC
@@ -824,8 +755,8 @@ const stRefrigerator_Flash refrigerator_F =
 					.maxPower = 238, //2.38 watt
 				},
 				.flap = {//DamperType.
-					.type = _FlapType_NONE, //_FlapType_StepMotor,
-					.index = 0xFF, //0,
+					.type = _FlapType_StepMotor, //_FlapType_NONE,  //
+					.index = 0, //0xFF,  //
 					.stepperConfigs = {
 						.drivingMethod = eStepperMotorDrivingMethodFullStep,
 						.calibrateAtInit = true,
@@ -835,14 +766,14 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.heaterA = { // Wrok by Cutin_CutOut [V-Heater]
-					.type = _HeaterType_AC, // acIMHeaT - BOOT HEATER - Heat Up heater
-					.index = 4,
+					.type = _HeaterType_NONE,  //_HeaterType_AC,  // HeaterType_NONE : None Heater
+					.index = 0xFF,  //4,  //
 					.test = {
 						.startTime = 0,
 						.endTime = 0,
 					},
-					.commercialDefrostTestPriority = 4,          //APW : Add CT heater software
-					.resistanceForPower = 12100,
+					.commercialDefrostTestPriority = 0,          //APW : Add CT heater software
+					.resistanceForPower = 0,
 				},
 				.heaterB = { //Defrost Heater
 					.type = _HeaterType_NONE, //None Heater _HeaterType_AC, //prodtest
@@ -854,15 +785,15 @@ const stRefrigerator_Flash refrigerator_F =
 					.commercialDefrostTestPriority = 0,          //APW : Add CT heater software
 					.resistanceForPower = 0,      //ohm
 				},
-				.heaterC = { // Dew Bootheater Handle Heater
-					.type = _HeaterType_NONE, //_HeaterType_AC,
-					.index = 0xFF,//6, //acRPHEAT 
+				.heaterC = { // Dew Prevention Heater
+					.type = _HeaterType_NONE,  //_HeaterType_AC,  //
+					.index = 0xFF,  //3,  //acSpheat  
 					.test = {
 						.startTime = 0,
 						.endTime = 0,
 					},
-					.commercialDefrostTestPriority = 0,  //4,  //For BONA H50
-					.resistanceForPower = 0,  //8067,  //For BONA H50
+					.commercialDefrostTestPriority = 0,          //APW : Add CT heater software
+					.resistanceForPower = 0,
 				},
 				.ionizer = { // None
 					.type = _IonizerType_NONE,
@@ -873,10 +804,10 @@ const stRefrigerator_Flash refrigerator_F =
 					},
 				},
 				.handleLight = { //FF-Libht
-					.type = _LightType_NONE, //_LightType_PWM,
-					.index_r = 0xFF, //2,
-					.index_g = 0xFF, //3,
-					.index_b = 0xFF, //4,
+					.type = _LightType_NONE,  //_LightType_PWM,  //
+					.index_r = 0xFF,  //2,  //
+					.index_g = 0xFF,  //3,  //
+					.index_b = 0xFF,  //4,  //
 					.test = {
 						.startTime = 36,
 						.endTime = 51,
@@ -905,21 +836,41 @@ const stRefrigerator_Flash refrigerator_F =
 					.index = 0,
 				},
 				.doorSwitch[1] = {
+					.type = _SwitchType_DC,  //_SwitchType_NONE,  //
+					.index = 1,  //0xFF,  //
+				},
+				.humanSensor = {
 					.type = _SwitchType_NONE,
 					.index = 0xFF,
 				},
-				.humanSensor = {
-					.type = _SwitchType_NONE,//_SwitchType_DC_Reversed,
-					.index = 0xFF,//10,
+#ifdef ALPS_H50				
+//----------------------------------- Auto Door ----------------------------------------------------//                                
+				.doorAssistOut = {
+					.type = _DoorAssistUnitType_PWM,//_DoorAssistOutType_DC,
+					.index = 1,//20,
 				},
+				.doorAssistMotor = {  //MOTOR
+					.type = _DoorAssistMotorType_BDC,
+					.index = 3,
+				},
+				.doorAssistInputSwitch = {
+					.type = _SwitchType_DC,
+					.index = 12,
+				},
+				.doorAssistMotorOverCurrentSensor = {
+					.type = _TempSensorType_NTCwithADC,  
+					.index = 14,
+				},
+//----------------------------------- Auto Door ----------------------------------------------------//                                
+#endif
 				.airTempSensor = {//R-Sensor
 					.type = _TempSensorType_NTC_R_air_ADC,
 					.index = 0,
 					.hideError = 0,
 				},
 				.evaTempSensor = {//R-Defrost Sensor
-					.type = _TempSensorType_NTC_R_eva_ADC,
-					.index = 1,
+					.type = _TempSensorType_NONE,  //_TempSensorType_NTC_R_eva_ADC,
+					.index = 0xFF,  //1,
 					.hideError = 0,
 				},
 				.violed = {// None
@@ -934,19 +885,19 @@ const stRefrigerator_Flash refrigerator_F =
 
 			.sets = {
 				.configs = {
-					.FF = 8,
+					.FF = 7,
 					.FRZ = 0,
 					.functions = {
-						.QuickFF = 1, .QuickFRZ = 0, .Vacation = 1, .Rice = 0, .QuickIce = 0, // Quick Ice Active
+						.QuickFF = 1, .QuickFRZ = 0, .Vacation = 0, .Rice = 0, .QuickIce = 0, // Quick Ice Active
 						.Convertible = 0, .CabinOff = 0,
 					},
 				},
 				.indexes = {
-					.FF  = { 5, 6, 7, 8, 9, 10, 3, 4, 0xFF, 0xFF, }, // FF[10] //* 6*/  { (unsigned char) 4 is defult
-					      //{ 6, 5, 4, 3, 10, 9, 8, 7, 0xFF, 0xFF, },
+					.FF  = { 5, 6, 7, 8, 9, 3, 4, 0xFF, 0xFF, 0xFF,  }, // FF[10] //* 6*/  { (unsigned char) 4 is defult
+					 //.FF  = {  7, 3, 11, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,}, // FF[10] //* 6*/  { (unsigned char) 4 is defult
 					.FRZ = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, }, // FRZ[10] /*17*/  { (unsigned char)-18 is defult
 					.functions = {
-						.QuickFF = 0, .QuickFRZ = 0xFF, .Vacation = 1, .Rice = 0xFF, .QuickIce = 6, // Quick Ice Set from table
+						.QuickFF = 0, .QuickFRZ = 0xFF, .Vacation = 0xFF, .Rice = 0xFF, .QuickIce = 0xFF, // Quick Ice Set from table
 						.Convertible = 0xFF, .CabinOff= 0xFF,
 					},
 				},
@@ -957,7 +908,7 @@ const stRefrigerator_Flash refrigerator_F =
 					//.thermalCutOut = 28,
 				},
 				.Quick = {
-					.timeFFMode = 240,//_Quick_TimeFFMode,//minute
+					.timeFFMode = 90,//_Quick_TimeFFMode,//minute
 					.timeFRZMode =_Quick_TimeFRZMode,//minute
 				},
 				.Cool = {
@@ -976,7 +927,7 @@ const stRefrigerator_Flash refrigerator_F =
 					.HotStart2Time = 485, //_Cool_HotStartTime,minutes
 					.PerformanceTestTime = 10, //minutes
 					.PerformanceTest2Time = 240,    //minutes
-					.Offsets =  {5,5,0,0,-10},//Ambien shif temp.
+					.Offsets =  {30,35,35,35,45},//Ambien shif temp.
 					.PreCoolOffsets =  {0,0,0,0,0}, //  Precooling shif temp.
 					.AfterDefrostOffsets =  {0,0,0,0,0}, //  After Defrost shif temp.
 					.OffsetsShiftCutIn =  {0,0,0,0,0},//Ambien shif temp.
@@ -987,15 +938,15 @@ const stRefrigerator_Flash refrigerator_F =
 #endif
 				},
 				.Defrost = {
-					.Type = _DefrostType_Variable,
+					.Type = _DefrostType_Disabled,
 					.MaxRealTime_DO = 600, //550, //_Defrost_FFAirEva_MaxRealTime_DO,/For normal defrost, No use in variable defrost
 					.MaxRealTime_DC = 600, //550, //_Defrost_FFAirEva_MaxRealTime_DC,/For normal defrost, No use in variable defrost
 					.MaxRealTime_QuickFRZ = _Defrost_FFAirEva_MaxRealTime_QuickFRZ,
 					.MaxWorkTime_DO = 65000,//Minute // MaxWorkTime is comp. ON time , it will reset when Comp. OFF
 					.MaxWorkTime_DC = 65000,//Minute // MaxWorkTime is comp. ON time , it will reset when Comp. OFF
 					.MaxDefrostHighTempTime = 720,                //Minute    (Defrost by High temperature) : set 0xFFFF for disable mode
-					.MaxDefrostHighTempShiftCutInTemp = 50,       //(Defrost by High temperature)  !!If set 0, will same as cutIN
-					.MaxDefrostHighTempShiftCutOutTemp = 10,      //(Defrost by High temperature)  !!If set 0, will same as cutIN
+					.MaxDefrostHighTempShiftCutInTemp = 65,       //(Defrost by High temperature)  !!If set 0, will same as cutIN
+					.MaxDefrostHighTempShiftCutOutTemp = 55,      //(Defrost by High temperature)  !!If set 0, will same as cutIN
 					.DefrostHighTemp_Activation = 1440,           //Activation time after power on
 					.MaxCycle_DO = 100, //_Defrost_FFAirEva_MaxCycle_DO, //Max cooling cycle counting (comp on&off)
 					.MaxCycle_DC = 100, //_Defrost_FFAirEva_MaxCycle_DC, //Max cooling cycle counting (comp on&off)
@@ -1006,21 +957,21 @@ const stRefrigerator_Flash refrigerator_F =
 					.ErrorMaxNoCoolTime = _Defrost_FFAirEva_ErrorMaxNoCoolTime, //For EVA sensor abnormal
 					.RealTimeAfterHotStart = 0, //After start Hot start
 					.RealTimeAfterService = 0, //After start Service mode
-					.DelayTime = 120,        //PCH Check /Max pre cool time
+					.DelayTime = 0,        //PCH Check /Max pre cool time
 					.AfterDefrostTime = 0,  // Shift cut-in cout-out time
 					.RecoveryModeActive = 1,  // PCH Check before defrost pumpout/ 0:No pumpout 1:Have pumpout
-					.DoorOpenedIntervals =                  { 1*5,  3*60, 4*60, 5*60, 10*60     }, // sec*60 = min //5 setting 6 area   
-					.VariableMaxRealTime[_Ambient_0] =      { 24*60, 22*60, 18*60, 16*60, 14*60, 12*60 },	//min
-					.VariableMaxRealTime[_Ambient_1] =      { 24*60, 22*60, 18*60, 16*60, 14*60, 12*60 },   //min
-					.VariableMaxRealTime[_Ambient_2] =      { 24*60, 30*60, 18*60, 16*60, 14*60, 12*60 },   //min
-					.VariableMaxRealTime[_Ambient_3] =      { 96*60, 22*60, 18*60, 16*60, 14*60, 12*60 },   //min
-					.VariableMaxRealTime[_Ambient_4] =      { 24*60, 22*60, 18*60, 16*60, 14*60, 12*60 },   //min
+					.DoorOpenedIntervals =                  { 2*60, 10*60, 15*60, 20*60, 25*60 }, // sec*60 = min //5 setting 6 area   
+					.VariableMaxRealTime[_Ambient_0] =      { 0*60, 0*60, 0*60, 0*60, 0*60, 0*60 },	//min
+					.VariableMaxRealTime[_Ambient_1] =      { 0*60, 0*60, 0*60, 0*60, 0*60, 0*60 },   //min
+					.VariableMaxRealTime[_Ambient_2] =      { 0*60, 0*60, 0*60, 0*60, 0*60, 0*60 },   //min
+					.VariableMaxRealTime[_Ambient_3] =      { 0*60, 0*60, 0*60, 0*60, 0*60, 0*60 },   //min
+					.VariableMaxRealTime[_Ambient_4] =      { 0*60, 0*60, 0*60, 0*60, 0*60, 0*60 },   //min
 					  //PCH Check
-					.VariableDefrostCutOutTemp[_Ambient_0] = {  32,  32,  32,  32,  32,  32 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_1] = {  32,  32,  32,  32,  32,  32 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_2] = {  32,  32,  32,  32,  32,  32 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_3] = {  32,  32,  32,  32,  32,  32 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_4] = {  32,  32,  32,  32,  32,  32 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_0] = {  0,  0,  0,  0,  0,  0 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_1] = {  0,  0,  0,  0,  0,  0 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_2] = {  0,  0,  0,  0,  0,  0 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_3] = {  0,  0,  0,  0,  0,  0 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_4] = {  0,  0,  0,  0,  0,  0 }, // Celcius *10
 #if defined(AI_COOL_V1)                                                       //AI_MODE ==>
 					.DoorOpenedIntervals_AI =             { 1*30,  1*60,  2*60,  4*60,  7*60 }, // min
 					.VariableMaxRealTime_AI[_Ambient_0] = { 6*60,   6*60,  5*60,  5*60,  4*60,   240 },
@@ -1037,49 +988,49 @@ const stRefrigerator_Flash refrigerator_F =
 #endif
 				},
 				.Fan = {
-					.SpeedLevel = { 100, 100, 100, 100, 100, 100, 100, 100, 100 },//For no Tc sensor model
+					.SpeedLevel = { 0, 0, 0, 0, 0, 0, 0, 0, 0 },//For no Tc sensor model
                                         /// NER			  Fan spped level L1,  L2,  L3,  L4,  LD, LH
-					.AmbientSpeedLevel[_Ambient_0] = { 50,  60,  70,  80,  90, 100},
-					.AmbientSpeedLevel[_Ambient_1] = { 60,  60,  80,  90,  90, 100},
-					.AmbientSpeedLevel[_Ambient_2] = { 75,  90,  90,  100,  90, 100},
-					.AmbientSpeedLevel[_Ambient_3] = { 75,  90,  90,  100,  90, 100},
-					.AmbientSpeedLevel[_Ambient_4] = {100, 100, 100, 100, 100, 100},
-					.CompressorOFF    = {true, true, true, true, true},//We donot use
-					.CompressorON_FRZ = {true, true, true, true, true},//We donot use
-					.SpeedError = 80,//For abnormal
+					.AmbientSpeedLevel[_Ambient_0] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_1] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_2] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_3] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_4] = {100, 100,  100,  100,  100,  100},
+					.CompressorOFF    = {false, false, false, false, false},//We donot use
+					.CompressorON_FRZ = {false, false, false, false, false},//We donot use
+					.SpeedError = 90,//For abnormal
 					.SpeedQuick = 100,//Quick FF
 					.SpeedSilent = 0,
-					.SpeedHotStart = 95,
+					.SpeedHotStart = 80,
 					.SpeedPumpOut = 0, // Fan speed @ _Work_PumpOut ,set 0
-					.SpeedConvertible = 80, //Variable temperature compartment
-					.SpeedIdle = 60,
+					.SpeedConvertible = 0, //Variable temperature compartment
+					.SpeedIdle = 0,
 					.MinDuty_DO = _Fan_FFAirEva_MinDuty_DO,
 					.MaxDuty_DO = _Fan_FFAirEva_MaxDuty_DO,
-					.MinDuty_DC = 1,
-					.MaxDuty_DC = 100,
-					.CutOutHysteresis = 1, //0.1C
+					.MinDuty_DC = 0,
+					.MaxDuty_DC = 0,
+					.CutOutHysteresis = 0, //0.1C
 					.WorkTimeAfterCool = 0, //minutes  ignore
-					.CutInTime = 3, // minutes /Delay time after comp on, after 
-					.HotStartDelayTime = 10, //_Fan_HotStartDelay,minutes
+					.CutInTime = 0, // minutes /Delay time after comp on, after 
+					.HotStartDelayTime = 1, //_Fan_HotStartDelay,minutes
 					.minStayTimeAtPresFanLevel = 10,
 					.maxStayTimeAtPresFanLevel = 75,
  					 /*** APW : Add CT heater software ***/
- 					.secOnTimeFlapFanCommercial = 0,        // Add Cabin0 and Cabin1 same value
-					.secOnTimeFfFanCommercial = 40,         // Add Cabin0 and Cabin1 same value
-					.secOnTimeFrzFanCommercial = 40,        // Add Cabin0 and Cabin1 same value
+ 					.secOnTimeFlapFanCommercial = 45,       // Add Cabin0 and Cabin1 same value
+					.secOnTimeFfFanCommercial = 0,          // Add Cabin0 and Cabin1 same value
+					.secOnTimeFrzFanCommercial = 45,        // Add Cabin0 and Cabin1 same value
  					 /*** APW : Add CT heater software ***/
  					 //PCH Check
 					.Offsets =  {0,0,0,0,0}, //Same as air sensor setting
 					.PreCoolOffsets =  {0,0,0,0,0}, //Same as air sensor setting
-					.AirSupplier = 0,
+					.AirSupplier = 1,
 				},
 				.Flap = {
 					.PositionA = _Flap_ALL_PositionA,
 					.PositionB = _Flap_ALL_PositionB,
-					.OnTimeA = _Flap_ALL_OnTimeA,
-					.OffTimeA = _Flap_ALL_OffTimeA,
-					.OnTimeB = _Flap_ALL_OnTimeB,
-					.OffTimeB = _Flap_ALL_OffTimeB,
+					.OnTimeA = 60, //_Flap_ALL_OnTimeA,
+					.OffTimeA = 30,//_Flap_ALL_OffTimeA,
+					.OnTimeB = 60,//_Flap_ALL_OnTimeB,
+					.OffTimeB = 30,//_Flap_ALL_OffTimeB,
 				},
 				.VacuumBox = {
 					.VacuumBoxFirstOFFTime = ( 6 * 60 ),    //6min_delay time first plug
@@ -1088,17 +1039,17 @@ const stRefrigerator_Flash refrigerator_F =
 					.VacuumBox_ONTime2 = 123,               //ON time after close door
 					.VacuumBox_ONDelayTime = 60,            //Delay time after close door
 					.VacuumBoxHeater = {
-						.OnTime [_Ambient_0] = {  0,  0,  0,  0,  0}, // second
-						.OffTime[_Ambient_0] = {  0,  0,  0,  0,  0}, // second
-						.OnTime [_Ambient_1] = {  0,  0,  0,  0,  0}, // second
-						.OffTime[_Ambient_1] = {  0,  0,  0,  0,  0}, // second
-						.OnTime [_Ambient_2] = {  0,  0,  0,  0,  0}, // second
-						.OffTime[_Ambient_2] = {  0,  0,  0,  0,  0}, // second
-						.OnTime [_Ambient_3] = {  0,  0,  0,  0,  0}, // second
-						.OffTime[_Ambient_3] = {  0,  0,  0,  0,  0}, // second
-						.OnTime [_Ambient_4] = {  0,  0,  0,  0,  0}, // second
-						.OffTime[_Ambient_4] = {  0,  0,  0,  0,  0}, // second						
-						.TemperaturesZone =      { -10, 10, 30, 50},
+						.OnTime [_Ambient_0] = { 0, 0,  0,  0,  0}, // second
+						.OffTime[_Ambient_0] = { 0, 0,  0,  0,  0}, // second
+						.OnTime [_Ambient_1] = { 0, 0,  0,  0,  0}, // second
+						.OffTime[_Ambient_1] = { 0, 0,  0,  0,  0}, // second
+						.OnTime [_Ambient_2] = { 0, 0,  0,  0,  0}, // second
+						.OffTime[_Ambient_2] = { 0, 0,  0,  0,  0}, // second
+						.OnTime [_Ambient_3] = { 0, 0,  0,  0,  0}, // second
+						.OffTime[_Ambient_3] = { 0, 0,  0,  0,  0}, // second
+						.OnTime [_Ambient_4] = { 0, 0,  0,  0,  0}, // second
+						.OffTime[_Ambient_4] = { 0, 0,  0,  0,  0}, // second						
+						.TemperaturesZone = { 0, 0, 0, 0},
 					},
 					.VacuumBoxCurrentSensor = {
 						.JudgmentLockA = 800,       // Vlock : (Sensor = 950)
@@ -1115,27 +1066,27 @@ const stRefrigerator_Flash refrigerator_F =
 					.OnTimeB = _HeaterC_ALL_OnTimeB,
 					.OffTimeB = _HeaterC_ALL_OffTimeB,
 					.humidityHeater = {
-					//PCH Check                         125, 205, 285, 355 
-						.OnTime [_Humidity_0] = {  0,   0,   0,   0,   0,},   // 1:less than 10 /Minutes
+					//PCH Check
+						.OnTime [_Humidity_0] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
 						.OffTime[_Humidity_0] = {  0,   0,   0,   0,   0,}, 	  
-						.OnTime [_Humidity_1] = {  0,   0,   0,   0,   0,},   // 2:less than 10 /Minutes
+						.OnTime [_Humidity_1] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
 						.OffTime[_Humidity_1] = {  0,   0,   0,   0,   0,}, 		  
-						.OnTime [_Humidity_2] = {  1,   1,   1,   1,   1,},   // 3:less than 10 /Minutes
-						.OffTime[_Humidity_2] = { 18,  18,   9,   9,   9,},		  
-						.OnTime [_Humidity_3] = {  2,   2,   2,   1,   3,},   // 4:less than 10 /Minutes
-						.OffTime[_Humidity_3] = { 11,   9,   8,   3,   7,}, 		  
-						.OnTime [_Humidity_4] = {  2,   1,   8,   8,   8,},   // 5:less than 10 /Minutes
-						.OffTime[_Humidity_4] = {  8,   3,   2,   2,   2,},
-						.OnTime [_Humidity_5] = {  6,   6,   9,   9,   9,},   // 6:less than 10 /Minutes
-						.OffTime[_Humidity_5] = { 11,  11,   1,   1,   1,}, 	  
-						.OnTime [_Humidity_6] = {  5,   5,  10,  10,  10,},   // 7:less than 10 /Minutes
-						.OffTime[_Humidity_6] = {  6,   5,   0,   0,   0,}, 		  
-						.OnTime [_Humidity_7] = {  5,   4,  10,  10,  10,},   // 8:less than 10 /Minutes
-						.OffTime[_Humidity_7] = {  5,   3,   0,   0,   0,}, 		  
-						.OnTime [_Humidity_8] = {  6,   7,  10,  10,  10,},   // 9:less than 10 /Minutes
-						.OffTime[_Humidity_8] = {  4,   4,   0,   0,   0,}, 		  
-						.OnTime [_Humidity_9] = {  7,   8,  10,  10,  10,},   // 10:less than 10 /Minutes
-						.OffTime[_Humidity_9] = {  3,   3,   0,   0,   0,},
+						.OnTime [_Humidity_2] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_2] = {  0,   0,   0,   0,   0,},		  
+						.OnTime [_Humidity_3] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_3] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_4] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_4] = {  0,   0,   0,   0,   0,},
+						.OnTime [_Humidity_5] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_5] = {  0,   0,   0,   0,   0,}, 	  
+						.OnTime [_Humidity_6] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_6] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_7] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_7] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_8] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_8] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_9] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_9] = {  0,   0,   0,   0,   0,},
 					},
 				},
 				.HeaterB = { //defrost
@@ -1150,27 +1101,27 @@ const stRefrigerator_Flash refrigerator_F =
 					.OnTimeB = _HeaterC_ALL_OnTimeB,
 					.OffTimeB = _HeaterC_ALL_OffTimeB,
 					.humidityHeater = {
-					//Handle_heater              
-						.OnTime [_Humidity_0] = { 0,  0,  0,  0,  0,},   // less than 10 /Minutes
-						.OffTime[_Humidity_0] = {10, 10, 10, 10, 10,}, 	  
-						.OnTime [_Humidity_1] = { 0,  0,  0,  0,  0,},  // between 10-20 
-						.OffTime[_Humidity_1] = {10, 10, 10, 10, 10,}, 		  
-						.OnTime [_Humidity_2] = { 0,  0,  0,  0,  0,},  // between 20-30 
-						.OffTime[_Humidity_2] = {10, 10, 10, 10, 10,}, 		  
-						.OnTime [_Humidity_3] = { 0,  0,  0,  0,  0,},  // between 30-40
-						.OffTime[_Humidity_3] = {10, 10, 10, 10, 10,}, 		  
-						.OnTime [_Humidity_4] = { 0,  0,  0,  0,  0,},  // between 40-50
-						.OffTime[_Humidity_4] = {10, 10, 10, 10, 10,},
-						.OnTime [_Humidity_5] = { 0,  0,  0,  0,  0,},   // between 50-60
-						.OffTime[_Humidity_5] = {10, 10, 10, 10, 10,}, 	  
-						.OnTime [_Humidity_6] = { 0,  0,  0,  0,  0,},  // between 60-70
-						.OffTime[_Humidity_6] = {10, 10, 10, 10, 10,}, 		  
-						.OnTime [_Humidity_7] = { 0,  0,  0,  0,  0,},  // between 70-80
-						.OffTime[_Humidity_7] = {10, 10, 10, 10, 10,}, 		  
-						.OnTime [_Humidity_8] = { 0,  0,  0,  0,  0,},  // between 80-90
-						.OffTime[_Humidity_8] = {10, 10, 10, 10, 10,}, 		  
-						.OnTime [_Humidity_9] = { 0,  0,  0,  0,  0,},  // between 90-100
-						.OffTime[_Humidity_9] = {10, 10, 10, 10, 10,},
+					//PCH Check
+						.OnTime [_Humidity_0] = {0,  0,  0,  0,  0},   // less than 10 /Minutes
+						.OffTime[_Humidity_0] = {0,  0,  0,  0,  0}, 	  
+						.OnTime [_Humidity_1] = {0,  0,  0,  0,  0},  // between 10-20 
+						.OffTime[_Humidity_1] = {0,  0,  0,  0,  0}, 		  
+						.OnTime [_Humidity_2] = {0,  0,  0,  0,  0},  // between 20-30 
+						.OffTime[_Humidity_2] = {0,  0,  0,  0,  0}, 		  
+						.OnTime [_Humidity_3] = {0,  0,  0,  0,  0},  // between 30-40
+						.OffTime[_Humidity_3] = {0,  0,  0,  0,  0}, 		  
+						.OnTime [_Humidity_4] = {0,  0,  0,  0,  0},  // between 40-50
+						.OffTime[_Humidity_4] = {0,  0,  0,  0,  0},
+						.OnTime [_Humidity_5] = {0,  0,  0,  0,  0},   // between 50-60
+						.OffTime[_Humidity_5] = {0,  0,  0,  0,  0}, 	  
+						.OnTime [_Humidity_6] = {0,  0,  0,  0,  0},  // between 60-70
+						.OffTime[_Humidity_6] = {0,  0,  0,  0,  0}, 		  
+						.OnTime [_Humidity_7] = {0,  0,  0,  0,  0},  // between 70-80
+						.OffTime[_Humidity_7] = {0,  0,  0,  0,  0}, 		  
+						.OnTime [_Humidity_8] = {0,  0,  0,  0,  0},  // between 80-90
+						.OffTime[_Humidity_8] = {0,  0,  0,  0,  0}, 		  
+						.OnTime [_Humidity_9] = {0,  0,  0,  0,  0},  // between 90-100
+						.OffTime[_Humidity_9] = {0,  0,  0,  0,  0},
 					},
 				},
 				.Level = { //No ambient sensor model
@@ -1186,11 +1137,11 @@ const stRefrigerator_Flash refrigerator_F =
 					/// NER
 				.AmbientLevel = {
 					.FF ={ 	//FF air sensor - CO value
-						.dt[_Ambient_0] = {50, 80, 120},
-						.dt[_Ambient_1] = {50, 80, 120},
-						.dt[_Ambient_2] = {50, 80, 120},
-						.dt[_Ambient_3] = {70, 80, 120},
-						.dt[_Ambient_4] = {50, 80, 120},
+						.dt[_Ambient_0] = {100, 150, 200}, 
+						.dt[_Ambient_1] = {100, 150, 200},
+						.dt[_Ambient_2] = {100, 150, 200},
+						.dt[_Ambient_3] = {150, 180, 200}, // Check at load processing test
+						.dt[_Ambient_4] = {100, 150, 200},
 					},
 					.FanFF = {	//Fan speed level 
 				                      //<10,10-40,40-50,>50
@@ -1216,8 +1167,8 @@ const stRefrigerator_Flash refrigerator_F =
 					.maxOffTimeFirstStart = (48 * 60) , // dk ilk kalkis durma suresi
 				},
 					/*** APW : Add CT heater software ***/
-					.TempJudgmentValveFfCommercial = 50,    // (50-> 5 degree)Add Temp for judgment valve switch
-					.TempJudgmentValveFrzCommercial = 50,   // (50-> 5 degree)Add Temp for judgment valve switch
+					.TempJudgmentValveFfCommercial = 0,    // (50-> 5 degree)Add Temp for judgment valve switch
+					.TempJudgmentValveFrzCommercial = 0,   // (50-> 5 degree)Add Temp for judgment valve switch
 					/*** APW : Add CT heater software ***/
 			},
 		},
@@ -1250,14 +1201,14 @@ const stRefrigerator_Flash refrigerator_F =
 					.index = 0xFF,
 				},
 				.heaterA = {
-					.type = _HeaterType_AC, //rpHeat Bootheater + ICD heater //_HeaterType_NONE,
-					.index = 3, //0xFF,
+					.type = _HeaterType_NONE,  //_HeaterType_AC,  //
+					.index = 0xFF,  //3,  //
 					.test = {
 						.startTime = 0,
 						.endTime = 0,
 					},
-					.commercialDefrostTestPriority = 5,  //APW : Add CT heater software
-					.resistanceForPower = 5378,
+					.commercialDefrostTestPriority = 0,  //APW : Add CT heater software
+					.resistanceForPower = 0,
 				},
 				.heaterB = {// Alminum heater
 					.type = _HeaterType_AC,
@@ -1267,7 +1218,7 @@ const stRefrigerator_Flash refrigerator_F =
 						.endTime = 0,
 					},
 					.commercialDefrostTestPriority = 1,  //APW : Add CT heater software
-					.resistanceForPower = 383,  //ohm
+					.resistanceForPower = 446,  //ohm
 				},
 				.heaterC = { //Gutter Heater
 					.type = _HeaterType_AC,
@@ -1277,7 +1228,7 @@ const stRefrigerator_Flash refrigerator_F =
 						.endTime = 0,
 					},
 					.commercialDefrostTestPriority = 2,  //APW : Add CT heater software
-					.resistanceForPower = 2361, // ohm
+					.resistanceForPower = 4840, // ohm
 				},
 				.ionizer = {
 					.type = _IonizerType_NONE,
@@ -1317,6 +1268,26 @@ const stRefrigerator_Flash refrigerator_F =
 					.type = _SwitchType_NONE,
 					.index = 0xFF,
 				},
+#ifdef ALPS_H50				
+//----------------------------------- Auto Door ----------------------------------------------------//                                
+				.doorAssistOut = {
+					.type = _DoorAssistOutType_NONE,        //_DoorAssistOutType_DC,
+					.index = 0xFF,
+				},
+				.doorAssistMotor = {  //MOTOR
+					.type = _DoorAssistMotorType_NONE,      //_DoorAssistMotorType_BDC,
+					.index = 0xFF,
+				},
+				.doorAssistInputSwitch = {
+					.type = _SwitchType_NONE,
+					.index = 0xFF,
+				},
+				.doorAssistMotorOverCurrentSensor = {
+					.type = _TempSensorType_NONE,  
+					.index = 0xFF,
+				},
+//----------------------------------- Auto Door ----------------------------------------------------//  
+#endif
 				.airTempSensor = {
 					.type = _TempSensorType_NTC_F_air_ADC,
 					.index = 2,
@@ -1339,9 +1310,10 @@ const stRefrigerator_Flash refrigerator_F =
 				},
 				.indexes = {
 					.FF =  { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, }, // FF[10]
-					.FRZ = { 14, 15, 16, 17, 11, 12, 13, 0xFF, 0xFF, 0xFF,               }, // FRZ[10]
+					.FRZ  = { 14, 15, 16, 17, 18, 12, 13, 0xFF, 0xFF,  0xFF, }, // FF[10] //* 6*/  { (unsigned char) 4 is defult
+                                        //.FRZ  = {  16 ,12, 20, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, }, // FF[10] //* 6*/  { (unsigned char) 4 is defult
 					.functions = {
-						.QuickFF = 0xFF, .QuickFRZ = 2, .Vacation = 0xFF, .Rice = 0xFF, .QuickIce = 2, // Quick Ice Set from table
+						.QuickFF = 0xFF, .QuickFRZ = 2, .Vacation = 0xFF, .Rice = 0xFF, .QuickIce = 0xFF, // Quick Ice Set from table
 						.Convertible = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, },
 						.CabinOff = 0xFF,
 					},
@@ -1364,7 +1336,7 @@ const stRefrigerator_Flash refrigerator_F =
 				},
 				.Quick = {
 					.timeFFMode = _Quick_TimeFFMode,
-					.timeFRZMode = 720,//_Quick_TimeFRZMode=24hrs//minute
+					.timeFRZMode = 120,//_Quick_TimeFRZMode=24hrs//minute
 				},
 				.Cool = {
 					.SabbathMaxIdleTime = _Cool_FRZAirEva_SabbathMaxIdleTime,
@@ -1377,7 +1349,7 @@ const stRefrigerator_Flash refrigerator_F =
 					.PerformanceTestTime = 15,
 					.PerformanceTest2Time = 135,
 					.pumpOutTime = 60,
-					.Offsets =  {-20,0,-10,0,0},
+					.Offsets =  { 0, 0, 0, 0,-10},
 					.PreCoolOffsets =  {0,0,0,0,0},
 					.AfterDefrostOffsets =  {0,0,0,0,0}, //  After Defrost shif temp.
 					.OffsetsShiftCutIn =  {0,0,0,0,0},//Ambien shif temp.
@@ -1395,29 +1367,29 @@ const stRefrigerator_Flash refrigerator_F =
 					.MaxWorkTime_DO = 96*60, //2200, //_Defrost_FRZAirEva_MaxWorkTime_DO,
 					.DefrostCutOutTemp = _Defrost_FRZAirEva_DefrostCutOutTemp, //100, //_Defrost_FRZAirEva_DefrostCutOutTemp, // ozgur
 					.MaxDefrostHighTempTime = 720,                //Minute    (Defrost by High temperature) : set 0xFFFF for disable mode
-					.MaxDefrostHighTempShiftCutInTemp = 90,       //(Defrost by High temperature)  !!If set 0, will same as cutIN
-					.MaxDefrostHighTempShiftCutOutTemp = 40,      //(Defrost by High temperature)  !!If set 0, will same as cutIN
+					.MaxDefrostHighTempShiftCutInTemp = 65,       //(Defrost by High temperature)  !!If set 0, will same as cutIN 
+					.MaxDefrostHighTempShiftCutOutTemp = 55,      //(Defrost by High temperature)  !!If set 0, will same as cutIN
 					.DefrostHighTemp_Activation = 1440,           //Activation time after power on
-					.MaxDefrostTime_DO = 90,//_Defrost_FRZAirEva_MaxDefrostTime_DO, //60
-					.MaxDefrostTime_DC = 90,//_Defrost_FRZAirEva_MaxDefrostTime_DO, //60 _Defrost_FRZAirEva_MaxDefrostTime_DC, //5
+					.MaxDefrostTime_DO = 50, //60 _Defrost_FRZAirEva_MaxDefrostTime_DC, //5
+					.MaxDefrostTime_DC = 50, //60 _Defrost_FRZAirEva_MaxDefrostTime_DC, //5
 					.ErrorMaxDefrostTime = _Defrost_FRZAirEva_ErrorMaxDefrostTime,
 					//.MaxDelayTimeForIceCream = (8 * 60),
 					.RealTimeAfterHotStart = 0,
 					.RealTimeAfterService = 840,
-					.DelayTime = 120,
+					.DelayTime = 0,
 					.AfterDefrostTime = 0,  // Shift cut-in cout-out time
 					.RecoveryModeActive = 1,
-					.DoorOpenedIntervals =                      { 1*5,  3*60, 4*60, 5*60, 10*60     }, // sec
-					.VariableMaxRealTime[_Ambient_0] =       { 24*60, 22*60, 18*60, 16*60, 14*60, 12*60 }, //min
-					.VariableMaxRealTime[_Ambient_1] =       { 24*60, 22*60, 18*60, 16*60, 14*60, 12*60 }, //min
-					.VariableMaxRealTime[_Ambient_2] =       { 24*60, 30*60, 18*60, 16*60, 14*60, 12*60 }, //min
-					.VariableMaxRealTime[_Ambient_3] =       { 96*60, 22*60, 18*60, 16*60, 14*60, 12*60 }, //min
-					.VariableMaxRealTime[_Ambient_4] =       { 24*60, 22*60, 18*60, 16*60, 14*60, 12*60 }, //min
-					.VariableDefrostCutOutTemp[_Ambient_0] = {  150,  150,  150,  150,  150,  150 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_1] = {  150,  150,  150,  150,  150,  150 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_2] = {  83,  83,  150,  150,  150,  150 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_3] = {  83,  83,  150,  150,  150,  150 }, // Celcius *10
-					.VariableDefrostCutOutTemp[_Ambient_4] = {  150,  150,  150,  150,  150,  150 }, // Celcius *10
+					.DoorOpenedIntervals =                   { 1*60,   10*60,  15*60,  20*60,   25*60     }, // sec
+					.VariableMaxRealTime[_Ambient_0] =       { 24*60,  22*60, 18*60,  16*60, 14*60, 12*60 }, //min
+					.VariableMaxRealTime[_Ambient_1] =       { 24*60,  22*60, 18*60,  16*60, 14*60, 12*60 }, //min
+					.VariableMaxRealTime[_Ambient_2] =       { 48*60,  22*60, 18*60,  16*60, 14*60, 12*60 }, //min
+					.VariableMaxRealTime[_Ambient_3] =       { 48*60,  22*60, 18*60,  16*60, 14*60, 12*60 }, //min
+					.VariableMaxRealTime[_Ambient_4] =       { 24*60,  22*60, 18*60,  16*60, 14*60, 12*60 }, //min
+					.VariableDefrostCutOutTemp[_Ambient_0] = {  100,  100,  100,  100,  100,  100 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_1] = {  100,  100,  100,  100,  100,  100 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_2] = {  100,  100,  100,  100,  100,  100 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_3] = {  100,  100,  100,  100,  100,  100 }, // Celcius *10
+					.VariableDefrostCutOutTemp[_Ambient_4] = {   29,  100,  100,  100,  100,  100 }, // Celcius *10
 #if defined(AI_COOL_V1)                                                       //AI_MODE ==>
 					.DoorOpenedIntervals_AI =             { 1*60, 2*60, 4*60, 6*60, 7*60 }, // min
 					.VariableMaxRealTime_AI[_Ambient_0] = {32*60, 32*60, 32*60, 32*60, 32*60, 32*60 },
@@ -1435,37 +1407,37 @@ const stRefrigerator_Flash refrigerator_F =
 					//.delayTime = 60,
 				},
 				.Drainage = { //DEF off time
-					.MaxDrainageTime = 10, // PCH Check _Drainage_FRZ_MaxDrainageTime,
+					.MaxDrainageTime = 5, // PCH Check _Drainage_FRZ_MaxDrainageTime,
 				},
 				.Fan = {
 					.SpeedLevel = { 80, 80, 80, 80, 80, 80, 80, 80, 80 },
 					/// NER                        /* L1, L2, L3, L4, LD, LH */
-					.AmbientSpeedLevel[_Ambient_0] = { 75,  75,  80,  90,  90, 100},
-					.AmbientSpeedLevel[_Ambient_1] = { 75,  80,  80,  100,  90, 100},
-					.AmbientSpeedLevel[_Ambient_2] = { 75,  90,  90,  100,  90, 100},
-					.AmbientSpeedLevel[_Ambient_3] = { 80,  90,  90,  100,  90, 100},
-					.AmbientSpeedLevel[_Ambient_4] = {100, 100, 100, 100, 100, 100},
+					.AmbientSpeedLevel[_Ambient_0] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_1] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_2] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_3] = { 75,  90,  100,  100,  100,  100},
+					.AmbientSpeedLevel[_Ambient_4] = {100, 100,  100,  100,  100,  100},
 					.CompressorOFF   = {false, false, false, false, false},
-					.CompressorON_FF = {false, false, true, true, true},
-					.SpeedError = 80,
+					.CompressorON_FF = {false, false, false, false, false},
+					.SpeedError = 90,
 					.SpeedQuick = 100,//Quick FRZ
 					.SpeedSilent = 0,
 					.SpeedHotStart = 80,
 					.SpeedPumpOut = 0, // Fan speed @ _Work_PumpOut ,set 0
-					.SpeedIdle = 80,
+					.SpeedIdle = 0,
 					.CutInEvaTemp = _Fan_FRZAirEva_CutInTemp, // _Fan_FRZAirEva_CutInTemp,
-					.CutInTime = 2,
+					.CutInTime = 1,
 					.WorkTimeAfterCool = 0,
-					.HotStartDelayTime = 10, //_Fan_HotStartDelay,
+					.HotStartDelayTime = 1, //_Fan_HotStartDelay,
 					.minStayTimeAtPresFanLevel = 10,
 					.maxStayTimeAtPresFanLevel = 75,
 					.Offsets =  {0,0,0,0,0},
 					.PreCoolOffsets =  {0,0,0,0,0},
-					.AirSupplier = 0,
+					.AirSupplier = 1,
 					/*** APW : Add CT heater software ***/
-					.secOnTimeFlapFanCommercial = 0,        // Add Cabin0 and Cabin1 same value
-					.secOnTimeFfFanCommercial = 40,         // Add Cabin0 and Cabin1 same value
-					.secOnTimeFrzFanCommercial = 40,        // Add Cabin0 and Cabin1 same value
+					.secOnTimeFlapFanCommercial = 45,       // Add Cabin0 and Cabin1 same value
+					.secOnTimeFfFanCommercial = 0,          // Add Cabin0 and Cabin1 same value
+					.secOnTimeFrzFanCommercial = 45,        // Add Cabin0 and Cabin1 same value
 					/*** APW : Add CT heater software ***/
 				},
 				.Flap = {
@@ -1485,26 +1457,26 @@ const stRefrigerator_Flash refrigerator_F =
 					.OffTimeB = _HeaterA_ALL_OffTimeB,
 					.humidityHeater = {
 					//PCH Check
-						.OnTime [_Humidity_0] = {  0,  0,  0,   0,  0,},   // less than 10 /Minutes
-						.OffTime[_Humidity_0] = {  0,  0,  0,   0,  0,}, 	  
-						.OnTime [_Humidity_1] = {  0,  0,  0,   0,  0,},   // less than 10 /Minutes
-						.OffTime[_Humidity_1] = {  0,  0,  0,   0,  0,}, 		  
-						.OnTime [_Humidity_2] = {  0,  0,  0,   0,  0,},   // less than 10 /Minutes
-						.OffTime[_Humidity_2] = {  0,  0,  0,   0,  0,}, 		  
-						.OnTime [_Humidity_3] = {  0,  0,  0,   0,  0,},   // less than 10 /Minutes
-						.OffTime[_Humidity_3] = {  0,  0,  0,   0,  0,}, 		  
-						.OnTime [_Humidity_4] = {  0,  0,  0,   0,  0,},   // less than 10 /Minutes
-						.OffTime[_Humidity_4] = {  0,  0,  0,   0,  0,},
-						.OnTime [_Humidity_5] = {  0,  0,  0,   0,  1,},   // less than 10 /Minutes
-						.OffTime[_Humidity_5] = {  0,  0,  0,   0,  9,}, 	  
-						.OnTime [_Humidity_6] = {  0,  0,  0,   0,  1,},   // less than 10 /Minutes
-						.OffTime[_Humidity_6] = {  0,  0,  0,   0,  9,}, 		  
-						.OnTime [_Humidity_7] = {  1,  1,  1,   1,  2,},   // less than 10 /Minutes
-						.OffTime[_Humidity_7] = { 18, 13,  8,   8,  8,}, 		  
-						.OnTime [_Humidity_8] = {  2,  1,  1,   1,  6,},   // less than 10 /Minutes
-						.OffTime[_Humidity_8] = {  8,  3,  2,   2,  4,}, 		  
-						.OnTime [_Humidity_9] = {  5,  6,  7,  10,  9,},   // less than 10 /Minutes
-						.OffTime[_Humidity_9] = {  5,  5,  4,   3,  1,},
+						.OnTime [_Humidity_0] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_0] = {  0,   0,   0,   0,   0,}, 	  
+						.OnTime [_Humidity_1] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_1] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_2] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_2] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_3] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_3] = {  0,   0,   0,   0,   0,},		  
+						.OnTime [_Humidity_4] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_4] = {  0,   0,   0,   0,   0,},
+						.OnTime [_Humidity_5] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_5] = {  0,   0,   0,   0,   0,}, 	  
+						.OnTime [_Humidity_6] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_6] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_7] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_7] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_8] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_8] = {  0,   0,   0,   0,   0,}, 		  
+						.OnTime [_Humidity_9] = {  0,   0,   0,   0,   0,},   // less than 10 /Minutes
+						.OffTime[_Humidity_9] = {  0,   0,   0,   0,   0,},
 					},
 				},
 
@@ -1557,11 +1529,11 @@ const stRefrigerator_Flash refrigerator_F =
 					/// NER 
 					.AmbientLevel = {
 						.FRZ ={ //Air Sensor
-							.dt[_Ambient_0] = {80, 120, 180}, 
-							.dt[_Ambient_1] = {80, 120, 180},
-							.dt[_Ambient_2] = {50, 100, 150},
-							.dt[_Ambient_3] = {100, 150, 200}, // Check at load processing test
-							.dt[_Ambient_4] = {80, 120, 180},
+							.dt[_Ambient_0] = {100, 150, 200}, 
+							.dt[_Ambient_1] = {100, 150, 200},
+							.dt[_Ambient_2] = {100, 150, 200},
+							.dt[_Ambient_3] = {150, 180, 200}, // Check at load processing test
+							.dt[_Ambient_4] = {100, 150, 200},
 						},
 						.FanFRZ = {//Fan duty
 							.level[_Ambient_0] = {1, 2, 3, 4},
@@ -1579,8 +1551,8 @@ const stRefrigerator_Flash refrigerator_F =
 						},
 					},
 					/*** APW : Add CT heater software ***/
-					.TempJudgmentValveFfCommercial = 50,    // (50-> 5 degree)Add Temp for judgment valve switch
-					.TempJudgmentValveFrzCommercial = 50,   // (50-> 5 degree)Add Temp for judgment valve switch
+					.TempJudgmentValveFfCommercial = 0,    // (50-> 5 degree)Add Temp for judgment valve switch
+					.TempJudgmentValveFrzCommercial = 0,   // (50-> 5 degree)Add Temp for judgment valve switch
 					/*** APW : Add CT heater software ***/
 			},
 		},

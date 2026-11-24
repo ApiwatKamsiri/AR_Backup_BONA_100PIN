@@ -49,6 +49,9 @@ extern "C"
 		eDeviceTypeFilteredReversedDigInput, // debounced
 		eDeviceTypeDigOutput,
 		eDeviceTypeSoftFreq,
+#ifdef ALPS_H50
+                eDeviceTypeSoftDuty,
+#endif
                 eDeviceTypeComm,
 		eDeviceTypeFadingLight,
 		eDeviceTypeNTC,
@@ -121,6 +124,9 @@ typedef struct{
   struct{ uint8_t index;  uint16_t value; uint16_t speed;       } VSDCMotor; 
   struct{ uint8_t index;  uint8_t  value; uint8_t  feedback;    } Eeprom;
   struct{ uint8_t index;  uint8_t  value; uint8_t  feedback;    } WiFiUart;
+#ifdef ALPS_H50
+  struct{ uint8_t index;  uint8_t  value;                       } DUTY;  
+#endif
 }stFTC;
 
 extern stFTC FTC;

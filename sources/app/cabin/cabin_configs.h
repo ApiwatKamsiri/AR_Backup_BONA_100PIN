@@ -45,6 +45,12 @@ typedef struct
     stVacuumBox_Flash vacuumBox;
     stHeater_Flash vacuumBoxHeater;
     stTempSensor_Flash vacuumBoxOverCurrentSensor;
+#ifdef ALPS_H50
+    stSwitch_Flash doorAssistInputSwitch;    
+    stTempSensor_Flash doorAssistMotorOverCurrentSensor;
+    stDoorAssistMotor_Flash doorAssistMotor;
+    stDoorAssistOut_Flash doorAssistOut;
+#endif    
     stVioLed_Flash violed;
 } stCabinComponents_Flash;
 

@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\05_REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.general.xcl" --backend -f "D:\05_REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.general.xcl" --backend -f "D:\REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\05_REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\05_REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\REPO_D\Pure_RCOS2_RenesasRA2_100\built\settings\RCoS2_100.Debug.driver.xcl" 
 }

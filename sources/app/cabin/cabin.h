@@ -70,6 +70,12 @@ typedef struct
     const tsDevIo *vacuumBox;
     const tsDevIo *vacuumBoxHeater;
     const tsDevIo *vacuumBoxOverCurrentSensor;
+#ifdef ALPS_H50
+    const tsDevIo *doorAssistInputSwitch;
+    const tsDevIo *doorAssistMotor;
+    const tsDevIo *doorAssistOut;    
+    const tsDevIo *doorAssistMotorOverCurrentSensor;
+#endif    
 } tsCabinProcDevIos;
 
 typedef struct

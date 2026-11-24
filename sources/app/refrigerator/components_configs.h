@@ -246,6 +246,20 @@ typedef enum
     _VacuumBoxType_BDCMotor = eDeviceTypeDigOutput,
 } enVacuumBoxTypes;
 
+#ifdef ALPS_H50
+typedef enum
+{
+    _DoorAssistMotorType_NONE = eDeviceTypeNone,
+    _DoorAssistMotorType_BDC = eDeviceTypeDCMotor,
+} enDoorAssistMotorTypes;
+
+typedef enum
+{
+    _DoorAssistOutType_NONE = eDeviceTypeNone,
+    _DoorAssistOutType_DC = eDeviceTypeDigOutput,
+    _DoorAssistUnitType_PWM = eDeviceTypeSoftDuty/*eDeviceTypeSoftFreq*/,
+} enDoorAssistOutTypes;
+#endif
 typedef struct
 {
     enPumpTypes type;
@@ -357,4 +371,18 @@ typedef struct
 } stVacuumBox_Flash;
 
 
+#ifdef ALPS_H50
+typedef struct
+{
+    enDoorAssistOutTypes type;
+    unsigned char index : 5;  
+}stDoorAssistOut_Flash;
+
+typedef struct
+{
+    enDoorAssistMotorTypes type;
+    unsigned char index : 5;
+
+}stDoorAssistMotor_Flash;
+#endif
 #endif

@@ -117,7 +117,7 @@ void uiNormalStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
 
     case _UI_NormalState_DispVersionRevision:
         uiP->errors.errorShowState++;
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
         if(uiP->states.normal.generalTimer > _UI_Normal_VersionRevision_Time / 2)
         {
           uiDspCabinData(consts, params, (unsigned char)(uiP->dspPacket.displayInfo.swVer + 100), 0, eDisplayCabinDataTypeNumber);
@@ -202,7 +202,7 @@ void uiNormalStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
     case _UI_NormalState_VersionRevision:
 
         uiP->errors.errorShowState++;
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
         if(uiP->states.normal.generalTimer > _UI_Normal_VersionRevision_Time / 2)
         {
           uiDspCabinData(consts, params, (unsigned char)(consts->rf->Stock.Version + 100), 0, eDisplayCabinDataTypeNumber);
@@ -606,12 +606,12 @@ void uiNormalStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *param
 {
     tsUiRam *uiP = params->ui;
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     if (!params->rf->Values.keyLock)
     {
         ceServiceStart(uiP, isEvent(eDisplayEventServiceMode));
     }
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
 
     /*
     if( params->rf->Values.doorsAlert &&
@@ -625,7 +625,7 @@ void uiNormalStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *param
 
     // Door Alarm
 #ifdef HOSHI_H30
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
     if (params->rf->Values.doorsAlert)
     {
         if (!isEvent(eDisplayEventNone) && !isEvent(eDisplayEventBuzzer))
@@ -750,6 +750,9 @@ void uiNormalStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *param
     case _UI_NormalState_DisplayOff_Init:
     case _UI_NormalState_DisplayOff:
 
+#ifdef ALPS_H50    
+        ceDisplayAutoDoor(params, isEvent(eDisplayEventAutoDoor));
+#endif        
         if (isEvent(eDisplayEventNone) == false)
         {
             ceNormalSetState(params, _UI_NormalState_Sets_Init, !isEvent(eDisplayEventNone));
@@ -887,6 +890,9 @@ void uiNormalStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *param
     case _UI_NormalState_Sets:
         ceDisplayKeyLock(params, isEvent(eDisplayEventKeyLock));
         ceDisplayKeyLockDspr(params, isEvent(eDisplayEventIceCreamMchOnOff));
+#ifdef ALPS_H50        
+        ceDisplayAutoDoor(params, isEvent(eDisplayEventAutoDoor));
+#endif        
         if (!params->rf->Values.keyLockDspr)
         {
           ceDispenserNextState(consts, params, &consts->rf->Dispenser, &params->rf->Dispenser, (isEvent(eDisplayEventDispencer)||isEvent(eDisplayEventWater)||isEvent(eDisplayEventIceCrush)||isEvent(eDisplayEventIceCube)|| isEvent(eDisplayEventMeasuredFill)||isEvent(eDisplayEventCalibrateCustom)), (unsigned char *)(&params->rf->ui.dspValues.receivedEvent));            // Swap buttons to match Connected device layout?

@@ -228,7 +228,7 @@ void uiCommercialStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
         
     case _UI_CommercialState_DispVersionRevision:
         uiP->errors.errorShowState++;
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
         if(uiP->states.commercial.generalTimer > _UI_Normal_VersionRevision_Time / 2)
         {
           uiDspCabinData(consts, params, (unsigned char)(uiP->dspPacket.displayInfo.swVer + 100), 0, eDisplayCabinDataTypeNumber);
@@ -311,7 +311,7 @@ void uiCommercialStateTask(const tsUiProcConsts *consts, tsUiProcParams *params)
       
     case _UI_CommercialState_VersionRevision:
         uiP->errors.errorShowState++;
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
         if(uiP->states.commercial.generalTimer > _UI_Normal_VersionRevision_Time / 2)
         {
           uiDspCabinData(consts, params, (unsigned char)(consts->rf->Stock.Version + 100), 0, eDisplayCabinDataTypeNumber);
@@ -714,12 +714,12 @@ void uiCommercialStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *p
 {
     tsUiRam *uiP = params->ui;
 
-#ifdef HOSHI_H30
+#ifdef ALPS_H50
     if (!params->rf->Values.keyLock)
     {
         ;//ceServiceStart(uiP, isEvent(eDisplayEventServiceMode));      //Don't need at commercial mode.
     }
-#endif  //HOSHI H30 and ALPS H10/30
+#endif
     
     /*
     if( params->rf->Values.doorsAlert &&
@@ -732,7 +732,7 @@ void uiCommercialStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *p
     
     // Door Alarm
 #ifdef HOSHI_H30
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
     if (params->rf->Values.doorsAlert)
     {
         if (!isEvent(eDisplayEventNone) && !isEvent(eDisplayEventBuzzer))
@@ -865,6 +865,9 @@ void uiCommercialStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *p
     case _UI_CommercialState_Sets:
         ceDisplayKeyLock(params, isEvent(eDisplayEventKeyLock));
         ceDisplayKeyLockDspr(params, isEvent(eDisplayEventIceCreamMchOnOff));
+#ifdef ALPS_H50        
+        ceDisplayAutoDoor(params, isEvent(eDisplayEventAutoDoor));
+#endif
         //if (!params->rf->Values.keyLockDspr)
         {
           ceDispenserNextState(consts, params, &consts->rf->Dispenser, &params->rf->Dispenser, (isEvent(eDisplayEventDispencer)||isEvent(eDisplayEventWater)||isEvent(eDisplayEventIceCrush)||isEvent(eDisplayEventIceCube)|| isEvent(eDisplayEventMeasuredFill)||isEvent(eDisplayEventCalibrateCustom)), (unsigned char *)(&params->rf->ui.dspValues.receivedEvent));            // Swap buttons to match Connected device layout?
@@ -1144,6 +1147,10 @@ void uiCommercialStateKeyHandler(const tsUiProcConsts *consts, tsUiProcParams *p
       
     case _UI_CommercialState_DisplayOff_Init:
     case _UI_CommercialState_DisplayOff:
+      
+#ifdef ALPS_H50    
+        ceDisplayAutoDoor(params, isEvent(eDisplayEventAutoDoor));
+#endif
          if (isEvent(eDisplayEventNone) == false)
         {
             ceCommercialSetState(params, _UI_CommercialState_Sets_Init, !isEvent(eDisplayEventNone));

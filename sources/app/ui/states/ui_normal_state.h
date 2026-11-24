@@ -3,7 +3,7 @@
 
 #define _UI_Normal_Error_Time 50           // 50  * 20ms = 1 sec
 #define _UI_Normal_AllLedsOn_Time 100      // 100 * 20ms = 1,5 sec
-#ifdef ALPS_H10H30
+#ifdef ALPS_H50
 #define _UI_Normal_VersionRevision_Time 100 // 50  * 20ms = 1 sec //Ezgi Kutlu 1s
 #else
 #define _UI_Normal_VersionRevision_Time 50 // 50  * 20ms = 1 sec //Ezgi Kutlu 1s

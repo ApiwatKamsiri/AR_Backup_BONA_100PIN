@@ -31,7 +31,7 @@ float_t ambientTemp = 0.0;
 #define Rair_SENSOR(ADC) (((1 / ((log((((float_t)ADC/1024*5 * 5500)  / (5  - (float_t)ADC/1024*5)) / 6350)  / 3830) + 1/(273.15 + (0)   ))) - 273.15)*10)
 #define Feva_SENSOR(ADC) (((1 / ((log((((float_t)ADC/1024*5 * 6340)  / (5  - (float_t)ADC/1024*5)) / 3900)  / 3870) + 1/(273.15 + (10)  ))) - 273.15)*10)
 #define Reva_SENSOR(ADC) (((1 / ((log((((float_t)ADC/1024*5 * 6340) / (5  - (float_t)ADC/1024*5)) / 3900)  / 3870) + 1/(273.15 + (10)  ))) - 273.15)*10)
-#define TC_SENSOR(ADC)   (((1 / ((log((((float_t)ADC/1024*5 * 10000) / (5  - (float_t)ADC/1024*5)) / 10000) / 3900) + 1/(273.15 + (25)  ))) - 273.15)*10)
+#define TC_SENSOR(ADC)   (((1 / ((log((((float_t)ADC/1024*5 * 13300) / (5  - (float_t)ADC/1024*5)) / 10000) / 3900) + 1/(273.15 + (25)  ))) - 273.15)*10)
 #define IM_SENSOR(ADC)   (((1 / ((log((((float_t)ADC/1024*5 * 12100) / (5  - (float_t)ADC/1024*5)) / 18900) / 3770) + 1/(273.15 + (-20) ))) - 273.15)*10)
 //#define F_SENSOR(ADC) ((( 1 / ((log((((float_t)ADC/1024*5 * Rpu)   / (Vs - (float_t)ADC/1024*5)) / Rspec) /   B ) + 1/(273.15 + Tspec ))) - 273.15)*10)
 //                                        Vntc                        Vntc                                                      floating point removing
@@ -233,6 +233,14 @@ static DEV_IO_FUNC_GET(ntcGet)
       ErrorMessage
       return (uint32_t) ((int32_t)(Fair_SENSOR(adcValueT)));
     }
+#ifdef ALPS_H50    
+    else if(device == ntcs[14]) //ntcASIN:
+    {
+      adcValueT = sensorErrorDetect(params, consts, ADC_OC_VALUE_FAir, ADC_SC_VALUE_FAir);
+      ErrorMessage
+      return (uint32_t) ((int32_t)(Fair_SENSOR(adcValueT)));
+    }
+#endif    
     else                        //anyelse
     {
       adcValueT = sensorErrorDetect(params, consts, ADC_OC_VALUE_FAir, ADC_SC_VALUE_FAir);

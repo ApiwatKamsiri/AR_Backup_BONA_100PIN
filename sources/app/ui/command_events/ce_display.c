@@ -64,6 +64,23 @@ void ceDisplayOff(tsUiProcParams *params, bool cmdReceived)
     */
 }
 
+#ifdef ALPS_H50
+void ceDisplayAutoDoor(tsUiProcParams *params, bool cmdReceived)
+{
+    if (!cmdReceived)
+        return;
+    //This function for cabin 0      
+            
+    if((!params->rf->Cabin[0].values.doorAssist.operationFlag) && (params->rf->Cabin[0].components.doorSwitch[0].value == _SwitchValue_CLOSE))
+    {
+        params->rf->Cabin[0].values.doorAssist.request = true;
+        sysBuzzerCmd(eSysBuzzerPlayButtonMelody);
+    }
+
+    uiInitStates(params->ui);
+    uiResetSetChangeTimer(params->ui);
+}
+#endif
 void ceDisplayKeyLock(tsUiProcParams *params, bool cmdReceived)
 {
     if (!cmdReceived)

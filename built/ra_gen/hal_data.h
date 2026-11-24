@@ -18,6 +18,16 @@
 #include "r_adc.h"
 #include "r_adc_api.h"
 FSP_HEADER
+/** Timer on GPT Instance. */
+extern const timer_instance_t ASOUT_T;
+
+/** Access the GPT instance using these structures when calling API functions directly (::p_api is not used). */
+extern gpt_instance_ctrl_t ASOUT_T_ctrl;
+extern const timer_cfg_t ASOUT_T_cfg;
+
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
 /** WDT on WDT Instance. */
 extern const wdt_instance_t g_wdt0;
 
@@ -199,7 +209,7 @@ void adcIsr(adc_callback_args_t * p_args);
 #endif
 
 #ifndef NULL
-#define ADC_DMAC_CHANNELS_PER_BLOCK_NULL  14
+#define ADC_DMAC_CHANNELS_PER_BLOCK_NULL  15
 #endif
 void hal_entry(void);
 void g_hal_init(void);

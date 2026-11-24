@@ -33,6 +33,9 @@
 #include "components/cabin_switch.h"
 #include "components/cabin_violed.h"
 
+#ifdef ALPS_H50
+#include "components/cabin_door_assistunit.h"
+#endif
 #include "procedures/cabin_duty.h"
 #include "procedures/cabin_defrost.h"
 #include "procedures/cabin_errors.h"
@@ -233,6 +236,27 @@ static void cabinInitDevices(const tsCabinProcConsts *consts, tsCabinProcParams 
     dev = boardInitDevice((teBoardDeviceType)compC->humanSensor.type, compC->humanSensor.index, NULL);
     devSyncAttach(consts->sync, eSyncTypeDeviceToRam, dev, &compP->humanSensor.value);
     pDev->humanSensor = dev;
+#ifdef ALPS_H50    
+    dev = boardInitDevice((teBoardDeviceType)compC->doorAssistInputSwitch.type, compC->doorAssistInputSwitch.index, NULL);
+    devSyncAttach(consts->sync, eSyncTypeDeviceToRam, dev, &compP->doorAssistInputSwitch.value);
+    pDev->doorAssistInputSwitch = dev;
+    
+    dev = boardInitDevice((teBoardDeviceType)compC->doorAssistOut.type, compC->doorAssistOut.index, NULL);
+    devSyncAttach(consts->sync, eSyncTypeRamToDevice, dev, &compP->doorAssistOut.value);
+    pDev->doorAssistOut = dev;
+    
+    dev = boardInitDevice((teBoardDeviceType)compC->doorAssistOut.type, compC->doorAssistOut.index, NULL);
+    devSyncAttach(consts->sync, eSyncTypeRamToDevice, dev, &compP->doorAssistOut.speedOrPWM);
+    pDev->doorAssistOut = dev;
+    
+    dev = boardInitDevice((teBoardDeviceType)compC->doorAssistMotor.type, compC->doorAssistMotor.index, NULL);
+    devSyncAttach(consts->sync, eSyncTypeRamToDevice, dev, &compP->doorAssistMotor.value);
+    pDev->doorAssistMotor = dev;
+    
+    dev = boardInitDevice((teBoardDeviceType)compC->doorAssistMotorOverCurrentSensor.type, compC->doorAssistMotorOverCurrentSensor.index, NULL);
+    devSyncAttach(consts->sync, eSyncTypeDeviceToRam, dev, &compP->doorAssistMotorOverCurrentSensor.valueInCExt);
+    pDev->doorAssistMotorOverCurrentSensor = dev;
+#endif
 }
 
 static void cabinInit(const tsCabinProcConsts *consts, tsCabinProcParams *params)
@@ -324,6 +348,10 @@ static void cabinInit(const tsCabinProcConsts *consts, tsCabinProcParams *params
     cabinP->values.defrost.afterDefrostActive = 0;
     cabinP->values.firstDefrostFlag = true;
     cabinP->values.finishDefrostFlag = false;
+#ifdef ALPS_H50
+    if(cabinC->components.doorAssistMotor.type != _DoorAssistMotorType_NONE)
+      cabinP->values.doorAssist.initRequest = true;
+#endif    
 }
 
 static void cabinNormalState20MsTask(const tsCabinProcConsts *consts, tsCabinProcParams *params)
@@ -1423,6 +1451,9 @@ static PROCESS_HANDLER_PROTO(cabinProcSuper20MsTask)
 
     cabinInnerLight20MsTask(consts, params);
     cabinSwitch20MsTask(consts, params);
+#ifdef ALPS_H50    
+    cabinDoorAssistUnit20MsTask(consts, params);
+#endif    
     
     if(refrigerator_R.ui.states.commercial.ClearStatusCommercial)
           cabinClearDisplaySetting20MsTask(consts, params);
@@ -1444,7 +1475,10 @@ static PROCESS_HANDLER_PROTO(cabinProcSuper1SecTask)
     cabinVacuumBox1SecTask(consts, params);
     cabinVioLed1SecTask(consts, params);
 
-    
+#ifdef ALPS_H50
+    cabinDoorAssistUnitT1sec(consts, params);
+#endif    
+
     if (cabinP->values.HighTemErr.delayTime)
         cabinP->values.HighTemErr.delayTime--;
     if (cabinP->stateTimers.PumpOut)

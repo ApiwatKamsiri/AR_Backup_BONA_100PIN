@@ -2,14 +2,14 @@
 #include "app/refrigerator/rf_configs.h"
 #include "dev/display_spi.h"
 
-#define _dispQFF    1
-#define _dispQFRZ   -25
+#define _dispQFF    2
+#define _dispQFRZ   -24
 #define _dispVAC    eDisplaySpecialsMidLine
 #define _dispFRZOFF eDisplaySpecialsMidLine
 
 const stCabinSetsTemperature_Flash fahrenheitCelciusTable = {    
-    .QFRD_ValueCelcius = 1,
-    .QFRZ_ValueCelcius = -25,
+    .QFRD_ValueCelcius = 2,
+    .QFRZ_ValueCelcius = -24,
     .lookUpTable = 
     {  //Fahrenheit   celcius      pointer
       
@@ -55,30 +55,29 @@ const stCabinSetsTemperature_Flash fahrenheitCelciusTable = {
 const stCabinSetsDatas_Flash cabinSetsDatasTable_F[] = {                                //<-------- Door Open---------><-------Door Close--------->
 //      {                 display   , c_CI_Temp   , c_CO_Temp   , f_CI_Temp   , fCO_Temp    , lTH_CI_Temp , lTH_CO_Temp , lTH_CI_Temp , lTH_CO_Temp },
 //      {                 display   , c_CI_Temp   , c_CO_Temp   , f_CI_Temp   , fCO_Temp    , lTH_CI_Temp , lTH_CO_Temp , lTH_CI_Temp , lTH_CO_Temp },
-/* 0*/  { (unsigned char) _dispQFF  , 15     , 10    , -30    , 32    , 0    , 0    , 0    , 0    },//Quick Cooling
-/* 1*/  { (unsigned char) _dispVAC  , 0      , 0      , 0      , 0     , 0    , 0    , 0    , 0    },//Vacation Dial
-/* 2*/  { (unsigned char) _dispQFRZ , -350   , -360   , -70    , -80   , 0    , 0    , 0    , 0    },//Quicl FRZ
+/* 0*/  { (unsigned char) _dispQFF  , -140  , -150  , -140  , -150  , 0    , 0    , 0    , 0    },//Quick Cooling
+/* 1*/  { (unsigned char) _dispVAC  , 0     , 0     , 0     , 0     , 0    , 0    , 0    , 0    },//Vacation Dial
+/* 2*/  { (unsigned char) _dispQFRZ , -465  , -475  , -465  , -475  , 0    , 0    , 0    , 0    },//Quicl FRZ
                                      //  Air-Sensor  // EVP-Sensor*Fan    // For Heater
-/* 3*/  { (unsigned char) 1         , 15   , 10   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/* 4*/  { (unsigned char) 2         , 20   , 15   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/* 5*/  { (unsigned char) 3         , 27   , 22   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/* 6*/  { (unsigned char) 4         , 40   , 30   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/* 7*/  { (unsigned char) 5         , 45   , 35   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/* 8*/  { (unsigned char) 6         , 55   , 45   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/* 9*/  { (unsigned char) 7         , 60   , 55   , -30    , 32 , 0     , 0     , 0     ,  0   },
-/*10*/  { (unsigned char) 8         , 65   , 60   , -30    , 32 , 0     , 0     , 0     ,  0   },
-  
-/*11*/  { (unsigned char)-22        , -250  , -260  , -70  , -80  , 0     , 0     , 0     ,  0   },
-/*12*/  { (unsigned char)-21        , -210  , -230  , -60  , -70  , 0     , 0     , 0     ,  0   },
-/*13*/  { (unsigned char)-20        , -180  , -200  , -50  , -60  , 0     , 0     , 0     ,  0   },
-/*14*/  { (unsigned char)-19        , -150  , -200  , -40  , -50  , 0     , 0     , 0     ,  0   },
-/*15*/  { (unsigned char)-18        , -140  , -190  , -30  , -40  , 0     , 0     , 0     ,  0   },
-/*16*/  { (unsigned char)-17        , -130  , -180  , -20  , -30  , 0     , 0     , 0     ,  0   },
-/*17*/  { (unsigned char)-16        , -120  , -170  , -10  , -20  , 0     , 0     , 0     ,  0   },                                   
+/* 3*/  { (unsigned char) 2         , 10   , 0    , 10   , 0   , 0     , 0     , 0     ,  0   },        //Max
+/* 4*/  { (unsigned char) 3         , 20   , 0    , 20   , 0   , 0     , 0     , 0     ,  0   },
+/* 5*/  { (unsigned char) 4         , 25   , 5    , 25   , 5  , 0     , 0     , 0     ,  0   },        //Mid Max
+/* 6*/  { (unsigned char) 5         , 36   , 16   , 36   , 16  , 0     , 0     , 0     ,  0   },
+/* 7*/  { (unsigned char) 6         , 47   , 27   , 47   , 27  , 0     , 0     , 0     ,  0   },        //Mid Min
+/* 8*/  { (unsigned char) 7         , 59   , 39   , 59   , 39  , 0     , 0     , 0     ,  0   },
+/* 9*/  { (unsigned char) 8         , 70   , 50   , 70   , 50  , 0     , 0     , 0     ,  0   },        //Min
 
+/*10*/  { (unsigned char) 0         ,  0   ,  0   ,  0   ,  0  , 0     , 0     , 0     ,  0   },        //Not Use
+/*11*/  { (unsigned char) 0         ,  0   ,  0   ,  0   ,  0  , 0     , 0     , 0     ,  0   },        //Not Use
 
-/*18*/  { (unsigned char)-16        , -170  , -172  , -100  , -350  , 0     , 0     , 0     ,  0   },//No exist***
+/*12*/  { (unsigned char) -24        , -255  , -265  , -255  , -265  , 0     , 0     , 0     ,  0   },    //Max
+/*13*/  { (unsigned char) -22        , -235  , -245  , -235  , -245  , 0     , 0     , 0     ,  0   },
+/*14*/  { (unsigned char) -20        , -215  , -225  , -215  , -225  , 0     , 0     , 0     ,  0   },    //Mid Max
+/*15*/  { (unsigned char) -19        , -203  , -213  , -203  , -213  , 0     , 0     , 0     ,  0   },
+/*16*/  { (unsigned char) -18        , -190  , -200  , -190  , -200  , 0     , 0     , 0     ,  0   },    //Mid Min
+/*17*/  { (unsigned char) -17        , -178  , -188  , -178  , -188  , 0     , 0     , 0     ,  0   },
+/*18*/  { (unsigned char) -16        , -165  , -175  , -165  , -175  , 0     , 0     , 0     ,  0   },    //Min
 
-/*19*/  { (unsigned char) 8         , 25    , 15    , 25    , 15    , 0     , 0     , 0     ,  0   },
-/*20*/  { (unsigned char) _dispFRZOFF , 138 , 115   , 138   , 115   , 0     , 0     , 0     ,  0   },};
+/*19*/  { (unsigned char)   0        ,    0  ,    0  ,    0  ,    0  , 0     , 0     , 0     ,  0   },    //Not Use
+/*20*/  { (unsigned char)   0        ,    0  ,    0  ,    0  ,    0  , 0     , 0     , 0     ,  0   }, }; //Not Use
 

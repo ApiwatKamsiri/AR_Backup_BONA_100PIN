@@ -42,6 +42,7 @@
       <configSetting altId="adc0.an07.p012" configurationId="adc0.an07" isUsedByDriver="true"/>
       <configSetting altId="adc0.an08.p013" configurationId="adc0.an08" isUsedByDriver="true"/>
       <configSetting altId="adc0.an09.p014" configurationId="adc0.an09" isUsedByDriver="true"/>
+      <configSetting altId="adc0.an10.p015" configurationId="adc0.an10" isUsedByDriver="true"/>
       <configSetting altId="adc0.an11.p005" configurationId="adc0.an11" isUsedByDriver="true"/>
       <configSetting altId="adc0.an12.p006" configurationId="adc0.an12" isUsedByDriver="true"/>
       <configSetting altId="adc0.an13.p007" configurationId="adc0.an13" isUsedByDriver="true"/>
@@ -54,6 +55,7 @@
       <configSetting altId="gpt2.gtiocb.p114" configurationId="gpt2.gtiocb" isUsedByDriver="true"/>
       <configSetting altId="gpt3.gtioca.p111" configurationId="gpt3.gtioca" isUsedByDriver="true"/>
       <configSetting altId="gpt3.gtiocb.p112" configurationId="gpt3.gtiocb" isUsedByDriver="true"/>
+      <configSetting altId="gpt4.gtiocb.p204" configurationId="gpt4.gtiocb" isUsedByDriver="true"/>
       <configSetting altId="gpt5.gtioca.p609" configurationId="gpt5.gtioca" isUsedByDriver="true"/>
       <configSetting altId="gpt5.gtiocb.p610" configurationId="gpt5.gtiocb" isUsedByDriver="true"/>
       <configSetting altId="gpt6.gtiocb.p600" configurationId="gpt6.gtiocb" isUsedByDriver="true"/>
@@ -61,11 +63,13 @@
       <configSetting altId="gpt8.gtiocb.p106" configurationId="gpt8.gtiocb" isUsedByDriver="true"/>
       <configSetting altId="iic0.scl.p408" configurationId="iic0.scl" isUsedByDriver="true"/>
       <configSetting altId="iic0.sda.p407" configurationId="iic0.sda" isUsedByDriver="true"/>
-      <configSetting altId="p015.input" configurationId="p015"/>
+      <configSetting altId="p104.input" configurationId="p104"/>
       <configSetting altId="p105.input" configurationId="p105"/>
       <configSetting altId="p107.input" configurationId="p107"/>
       <configSetting altId="p115.output.low" configurationId="p115"/>
-      <configSetting altId="p204.output.low" configurationId="p204"/>
+      <configSetting altId="p200.input" configurationId="p200"/>
+      <configSetting altId="p202.output.low" configurationId="p202"/>
+      <configSetting altId="p203.output.low" configurationId="p203"/>
       <configSetting altId="p205.output.low" configurationId="p205"/>
       <configSetting altId="p206.output.low" configurationId="p206"/>
       <configSetting altId="p207.output.low" configurationId="p207"/>
@@ -84,8 +88,11 @@
       <configSetting altId="p403.output.low" configurationId="p403"/>
       <configSetting altId="p404.input" configurationId="p404"/>
       <configSetting altId="p406.input" configurationId="p406"/>
+      <configSetting altId="p409.output.low" configurationId="p409"/>
+      <configSetting altId="p412.input" configurationId="p412"/>
       <configSetting altId="p413.input" configurationId="p413"/>
       <configSetting altId="p414.input" configurationId="p414"/>
+      <configSetting altId="p415.input" configurationId="p415"/>
       <configSetting altId="p500.output.low" configurationId="p500"/>
       <configSetting altId="p501.output.low" configurationId="p501"/>
       <configSetting altId="p502.output.low" configurationId="p502"/>
@@ -95,7 +102,8 @@
       <configSetting altId="p601.input" configurationId="p601"/>
       <configSetting altId="p603.output.low" configurationId="p603"/>
       <configSetting altId="p608.output.low" configurationId="p608"/>
-      <configSetting altId="p714.input" configurationId="p714"/>
+      <configSetting altId="p708.input" configurationId="p708"/>
+      <configSetting altId="p714.output.low" configurationId="p714"/>
       <configSetting altId="p808.output.low" configurationId="p808"/>
       <configSetting altId="p809.output.low" configurationId="p809"/>
       <configSetting altId="sci0.rxd.p410" configurationId="sci0.rxd" isUsedByDriver="true"/>
